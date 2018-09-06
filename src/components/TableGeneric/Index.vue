@@ -1,7 +1,7 @@
 <template>
   <table class="Table">
     <thead>
-      <td v-for="head in config.rows">{{ head.label }}</td>
+      <TableCell v-for="head in config.rows">{{ head.label }}</TableCell>
     </thead>
     <tr v-for="row in finalData">
       <TableCell v-for="property in row" :style="property.style">
@@ -56,6 +56,6 @@ export default {
   }
   
   .Table tr:nth-of-type(odd) {
-    background: #f7f7f7;
+    background: rgba(0, 0, 0, 0.2);
   }
 </style>

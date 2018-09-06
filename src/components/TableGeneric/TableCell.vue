@@ -12,8 +12,9 @@ export default {
 
 <style scoped>
   .TableCell {
-    padding: 8px 12px;
+    padding: 10px 20px;
     height: 40px;
     vertical-align: middle;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
   }
 </style>

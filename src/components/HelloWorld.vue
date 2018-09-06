@@ -1,17 +1,21 @@
 <template>
-  <WrapperGeneric>
-    <TableGeneric :data="users" :config="config"></TableGeneric>
-  </WrapperGeneric>
+  <div class="Test">
+    <WrapperGeneric>
+      <PatternGeneric />
+      <TableGeneric :data="users" :config="config"></TableGeneric>
+    </WrapperGeneric>
+  </div>
 </template>
 
 <script>
 import TestService from '@/services/TestService'
 import TableGeneric from '@/components/TableGeneric'
 import WrapperGeneric from '@/components/WrapperGeneric'
+import PatternGeneric from '@/components/PatternGeneric'
   
 export default {
   name: 'HelloWorld',
-  components: { TableGeneric, WrapperGeneric },
+  components: { TableGeneric, WrapperGeneric, PatternGeneric },
   mounted () {
     this.getPosts()
   },
@@ -22,7 +26,7 @@ export default {
         rows: {
           id: { label: 'ID' },
           firstname: { label: 'Prénom' },
-          lastname: { label: 'Nom', style: { textTransform: 'uppercase' } },
+          lastname: { label: 'Nom', style: { textTransform: 'uppercase', fontWeight: 800 } },
           phone: { label: 'Téléphone' }
         }
       }
@@ -45,4 +49,8 @@ export default {
 </script>
 
 <style scoped>
+  .Test {
+    min-height: 100vh;
+    background: #2a2f33;
+  }
 </style>
