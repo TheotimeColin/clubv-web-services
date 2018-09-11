@@ -21,6 +21,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 }
   
+:root {
+  --color-label: #717171;
+  --color-background-medium: #2a2f33;
+  --color-background-dark: #191f23;
+}
+  
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -68,5 +74,15 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+  
+input {
+  width: auto;
+  font-size: inherit;
+  font-family: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
 }
 </style>
