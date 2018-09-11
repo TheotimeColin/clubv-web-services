@@ -40,6 +40,7 @@ export default {
   methods: {
     async getPosts () {
       const response = await TestService.fetchPosts()
+      console.log(response)
       this.users = response.data.map((value) => {
         return {
           id: value.user_id,
