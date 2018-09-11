@@ -1,11 +1,13 @@
 <template>
   <div class="Test">
-    <WrapperGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
-      <InputText class="InputTest" />
-    </WrapperGeneric>
-    <WrapperGeneric :modifiers="[ 'full' ]">
+    <SectionGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
+      <WrapperGeneric>
+        <InputText class="InputTest" />
+      </WrapperGeneric>
+    </SectionGeneric>
+    <SectionGeneric :modifiers="[ 'full' ]">
       <TableGeneric :data="users" :config="config"></TableGeneric>
-    </WrapperGeneric>
+    </SectionGeneric>
   </div>
 </template>
 
@@ -13,11 +15,12 @@
 import TestService from '@/services/TestService'
 import TableGeneric from '@/components/TableGeneric'
 import WrapperGeneric from '@/components/WrapperGeneric'
+import SectionGeneric from '@/components/SectionGeneric'
 import InputText from '@/components/InputGeneric/InputText'
   
 export default {
   name: 'HelloWorld',
-  components: { TableGeneric, WrapperGeneric, InputText },
+  components: { TableGeneric, WrapperGeneric, InputText, SectionGeneric },
   mounted () {
     this.getPosts()
   },
@@ -58,9 +61,5 @@ export default {
     height: 100vh;
     overflow: hidden;
     background-color: var(--color-background-medium);
-  }
-  
-  .Test_upper {
-    padding: 0 20px;
   }
 </style>

@@ -64,6 +64,7 @@ export default {
     transform: translate3d(0, -50%, 0);
     color: var(--color-label);
     pointer-events: none;
+    opacity: 0.5;
     
     transition: all 250ms ease;
   }
@@ -71,6 +72,7 @@ export default {
   .InputText--focused .InputText_label,
   .InputText--hasValue .InputText_label{
     font-size: 16px;
+    opacity: 1;
     transform: translate3d(-20px, -50px, 0);
   }
 
