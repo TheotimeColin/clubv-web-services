@@ -60,25 +60,29 @@ export default {
     top: 50%;
     left: 20px;
     z-index: 1;
-    font-size: 20px;
+    font-size: 18px;
     transform: translate3d(0, -50%, 0);
     color: var(--color-label);
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.7;
     
     transition: all 250ms ease;
   }
   
   .InputText--focused .InputText_label,
   .InputText--hasValue .InputText_label{
-    font-size: 16px;
+    font-size: 14px;
     opacity: 1;
-    transform: translate3d(-20px, -50px, 0);
+    transform: translate3d(-10px, -45px, 0);
   }
 
   .InputText_input {
-    padding: 10px;
-    border-radius: 6px;
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 30px;
     text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-label);
   }
 </style>

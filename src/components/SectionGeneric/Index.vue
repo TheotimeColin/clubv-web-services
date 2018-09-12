@@ -4,19 +4,22 @@
     :class="classes"
   >
     <PatternGeneric v-if="pattern" />
+    <GridLinesGeneric v-if="lines" />
     <slot></slot>
   </div>
 </template>
 
 <script>
 import PatternGeneric from '@/components/PatternGeneric'
+import GridLinesGeneric from '@/components/GridLinesGeneric'
   
 export default {
   name: 'SectionGeneric',
-  components: { PatternGeneric },
+  components: { PatternGeneric, GridLinesGeneric },
   props: {
     modifiers: { type: Array, default: () => [] },
-    pattern: { type: Boolean, default: false }
+    pattern: { type: Boolean, default: false },
+    lines: { type: Boolean, default: false },
   },
   computed: {
     classes () {
@@ -44,7 +47,7 @@ export default {
   .Section--header {
     display: flex;
     align-items: center;
-    height: 150px;
+    height: 250px;
     flex-shrink: 0;
   }
 </style>

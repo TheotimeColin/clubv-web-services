@@ -22,7 +22,8 @@ export default {
 }
   
 :root {
-  --color-label: #717171;
+  --color-grid-lines: rgba(255, 255, 255, 0.2);
+  --color-label: #ffffff;
   --color-background-medium: #2a2f33;
   --color-background-dark: #191f23;
 }

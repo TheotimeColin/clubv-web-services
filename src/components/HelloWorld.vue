@@ -1,10 +1,13 @@
 <template>
   <div class="Test">
+    
     <SectionGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
       <WrapperGeneric>
+        <LogoGeneric class="Test_logo" :source="assets.logoLSPD" :width="75" />
         <InputText class="InputTest" />
       </WrapperGeneric>
     </SectionGeneric>
+    
     <SectionGeneric :modifiers="[ 'full' ]">
       <TableGeneric :data="users" :config="config"></TableGeneric>
     </SectionGeneric>
@@ -17,15 +20,19 @@ import TableGeneric from '@/components/TableGeneric'
 import WrapperGeneric from '@/components/WrapperGeneric'
 import SectionGeneric from '@/components/SectionGeneric'
 import InputText from '@/components/InputGeneric/InputText'
+import LogoGeneric from '@/components/LogoGeneric'
+  
+import logoLSPD from '@/assets/img/icons/lspd.png'
   
 export default {
   name: 'HelloWorld',
-  components: { TableGeneric, WrapperGeneric, InputText, SectionGeneric },
+  components: { TableGeneric, WrapperGeneric, InputText, SectionGeneric, LogoGeneric },
   mounted () {
     this.getPosts()
   },
   data () {
     return {
+      assets: { logoLSPD },
       users: [],
       config: {
         rows: {
@@ -62,5 +69,9 @@ export default {
     height: 100vh;
     overflow: hidden;
     background-color: var(--color-background-medium);
+  }
+  
+  .Test_logo {
+    margin-bottom: 30px;
   }
 </style>
