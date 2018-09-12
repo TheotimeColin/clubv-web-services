@@ -1,7 +1,9 @@
 import Api from '@/services/Api'
 
 export default {
-  fetchPosts () {
-    return Api().get('posts')
+  fetchPosts (search) {
+    return Api().get('posts',
+      { params: { search: search } }
+    )
   }
 }

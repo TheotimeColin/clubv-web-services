@@ -6,9 +6,7 @@
       { 'InputText--hasValue' : hasValue }
     ]"
   >
-    <label class="InputText_label">
-      Nom, prénom, matricule...
-    </label>
+    <label class="InputText_label">{{ label }}</label>
     <input
       class="InputText_input"
       type="text"
@@ -33,12 +31,15 @@ export default {
     }
   },
   props: {
-    required: { type: Boolean, default: false }
+    required: { type: Boolean, default: false },
+    label: { type: String, default: '' }
   },
   methods: {
-    onKeyup  (e) {
+    onKeyup (e) {
       this.$set(this, 'value', this.$refs.input.value)
       this.$set(this, 'hasValue', this.value.length > 0 ? true : false)
+      
+      this.$emit('changeSearch', this.value)
     }
   }
 }
@@ -64,16 +65,22 @@ export default {
     transform: translate3d(0, -50%, 0);
     color: var(--color-label);
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.6;
     
     transition: all 250ms ease;
   }
   
   .InputText--focused .InputText_label,
-  .InputText--hasValue .InputText_label{
+  .InputText--hasValue .InputText_label {
     font-size: 14px;
     opacity: 1;
     transform: translate3d(-10px, -45px, 0);
+  }
+  
+  .InputText--focused .InputText_input,
+  .InputText--hasValue .InputText_input {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
   }
 
   .InputText_input {
@@ -82,7 +89,9 @@ export default {
     font-size: 30px;
     text-transform: uppercase;
     background-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     color: var(--color-label);
+    
+    transition: all 250ms ease;
   }
 </style>

@@ -22,10 +22,12 @@ export default {
 }
   
 :root {
-  --color-grid-lines: rgba(255, 255, 255, 0.2);
+  --color-grid-lines: #434749;
   --color-label: #ffffff;
+  --color-background-light: #22292d;
   --color-background-medium: #2a2f33;
   --color-background-dark: #191f23;
+  --color-background-darker: #0d0f10;
 }
   
 html, body, div, span, applet, object, iframe,
@@ -47,6 +49,7 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
   
 article, aside, details, figcaption, figure, 
@@ -82,6 +85,7 @@ input {
   font-size: inherit;
   font-family: inherit;
   border: none;
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
   outline: none;

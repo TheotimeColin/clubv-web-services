@@ -1,14 +1,18 @@
 <template>
-  <table class="Table">
-    <thead>
-      <TableCell v-for="head in config.rows">{{ head.label }}</TableCell>
-    </thead>
-    <tr v-for="row in finalData">
-      <TableCell v-for="property in row" :style="property.style">
-        {{ property.value }}
-      </TableCell>
-    </tr>
-  </table>
+  <div class="Table">
+    <table class="Table_head">
+      <TableCell v-for="head in config.rows" :style="head.style" :head="true">{{ head.label }}</TableCell>
+    </table>
+    <div class="Table_scroll">
+      <table class="Table_data">
+        <tr v-for="row in finalData">
+          <TableCell v-for="property in row" :style="property.style">
+            {{ property.value }}
+          </TableCell>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,19 +22,16 @@ export default {
   name: 'TableGeneric',
   components: { TableCell },
   props: {
-    data: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    config: {
-      type: Object,
-      default: {
-        rows: []
-      }
-    }
+    data: { type: Array, required: true, default: () => [] },
+    config: { type: Object, default: { rows: [] } }
+  },
+  mounted () {
+    console.log(this.config.rows)
   },
   computed: {
+    cellStyle() {
+      
+    },
     finalData () {
       return this.data.map((single) => {
         let data = {}
@@ -51,11 +52,19 @@ export default {
 
 <style scoped>
   .Table {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .Table_data,
+  .Table_head {
     width: 100%;
     border-spacing: 0;
   }
   
   .Table tr:nth-of-type(odd) {
-    background: rgba(0, 0, 0, 0.2);
+    background-color: var(--color-background-light);
   }
 </style>
