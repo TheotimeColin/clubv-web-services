@@ -25,13 +25,7 @@ export default {
     data: { type: Array, required: true, default: () => [] },
     config: { type: Object, default: { rows: [] } }
   },
-  mounted () {
-    console.log(this.config.rows)
-  },
   computed: {
-    cellStyle() {
-      
-    },
     finalData () {
       return this.data.map((single) => {
         let data = {}

@@ -67,14 +67,14 @@ export default {
     pointer-events: none;
     opacity: 0.6;
     
-    transition: all 250ms ease;
+    transform-origin: left;
+    transition: all 150ms ease;
   }
   
   .InputText--focused .InputText_label,
   .InputText--hasValue .InputText_label {
-    font-size: 14px;
     opacity: 1;
-    transform: translate3d(-10px, -45px, 0);
+    transform: translate3d(-10px, -45px, 0) scale(0.9);
   }
   
   .InputText--focused .InputText_input,
@@ -83,6 +83,10 @@ export default {
     border-bottom: 1px solid rgba(255, 255, 255, 0.8);
   }
 
+  .InputText:hover .InputText_input {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
   .InputText_input {
     width: 100%;
     padding: 16px 20px;
@@ -92,6 +96,6 @@ export default {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     color: var(--color-label);
     
-    transition: all 250ms ease;
+    transition: all 150ms ease;
   }
 </style>

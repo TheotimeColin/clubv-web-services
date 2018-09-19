@@ -23,7 +23,13 @@ export default {
   },
   computed: {
     classes () {
-      return this.modifiers.map(modifier => `Section--${modifier}`)
+      return this.modifiers.map((modifier) => {
+        if (modifier.name) {
+          return modifier.active ? `Section--${modifier.name}` : ''
+        } else {
+          return `Section--${modifier}`
+        }
+      })
     }
   }
 }
@@ -37,6 +43,10 @@ export default {
   
   .Section--full {
     background-color: var(--color-background-dark);
+  }
+  
+  .Section--no-overflow {
+    overflow: hidden;
   }
   
   .Section--shadow {

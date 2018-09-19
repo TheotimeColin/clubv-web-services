@@ -12,16 +12,11 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400i,700');
-  
-#app {
-  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-  color: white;
-  font-size: 25px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-  
+
 :root {
+  --color-text-main: #ffffff;
+  --color-text-dark: #585858;
+  
   --color-grid-lines: #434749;
   --color-label: #ffffff;
   --color-background-light: #22292d;
@@ -30,6 +25,16 @@ export default {
   --color-background-darker: #0d0f10;
 }
   
+  
+#app {
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  color: var(--color-text-main);
+  font-size: 25px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+  
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -42,7 +47,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -50,6 +55,8 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
   box-sizing: border-box;
+  background: transparent;
+  outline: none;
 }
   
 article, aside, details, figcaption, figure, 
