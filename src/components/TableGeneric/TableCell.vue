@@ -1,7 +1,7 @@
 <template>
-  <td class="TableCell" :class="[ { 'TableCell--head': head }]">
+  <div class="TableCell" :class="[ { 'TableCell--head': head }]">
     <slot></slot>
-  </td>
+  </div>
 </template>
 
 <script>
@@ -15,14 +15,16 @@ export default {
 
 <style scoped>
   .TableCell {
-    padding: 10px 20px;
-    height: 40px;
-    vertical-align: middle;
+    padding: 20px;
+    min-height: 60px;
+    display: table-cell;
     border-right: 1px solid var(--color-grid-lines);
   }
   
   .TableCell--head {
     font-size: 16px;
+    padding: 8px;
+    height: auto;
     border-bottom: 1px solid var(--color-grid-lines);
     background-color: var(--color-background-darker);
   }

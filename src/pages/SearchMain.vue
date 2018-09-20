@@ -3,48 +3,54 @@
     
     <SectionGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
       <WrapperGeneric>
-        <LogoGeneric class="Test_logo" :source="assets.logoLSPD" :width="75" />
-        <form @submit="() => this.onSubmitSearch()" action="#">
-          <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstname: v })"/>
-          <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastname: v })"/>
-          <button type="submit"></button>
-        </form>
+        <div class="Test_form">
+          <LogoGeneric class="Test_logo" :source="assets.logoLSPD" :width="100" />
+          <p>Recherche</p>
+          <form @submit="() => this.onSubmitSearch()" action="#">
+            <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstname: v })"/>
+            <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastname: v })"/>
+            <button class="SubmitTest" type="submit">></button>
+          </form>
+        </div>
       </WrapperGeneric>
     </SectionGeneric>
     
-    <SectionGeneric :modifiers="[ 'full', { name: 'no-overflow', active: state.isLoading } ]">
-      <LoadOverlay v-if="state.isLoading" />
-      
-      <TableGeneric :data="users" :config="config"></TableGeneric>
-      
-      <LoadMore @load-more="() => this.onLoadMore()" v-if="this.pages.current < this.pages.max">Charger plus ({{ pages.items }} entrées restantes)</LoadMore>
-    </SectionGeneric>
+    <SearchTable
+      :config="config"
+      :data="users"
+      :displayLoading="state.isLoading"
+      :pages="pages"
+      @load-more="() => onLoadMore()"
+      @on-scroll="(percentage) => onProgress(percentage)"
+    />
+    
+    <div class="ProgressBar" :style="{ transform: `scaleX(${ state.progress })` }"></div>
   </div>
 </template>
 
 <script>
 import TestService from '@/services/TestService'
 
-import TableGeneric from '@/components/TableGeneric'
 import WrapperGeneric from '@/components/WrapperGeneric'
 import SectionGeneric from '@/components/SectionGeneric'
 import InputText from '@/components/InputGeneric/InputText'
 import LogoGeneric from '@/components/LogoGeneric'
-import LoadMore from '@/components/LoadMore'
-import LoadOverlay from '@/components/LoadOverlay'
+  
+import SearchTable from '@/layout/SearchTable'
   
 import logoLSPD from '@/assets/img/icons/lspd.png'
   
 export default {
-  name: 'HelloWorld',
-  components: { TableGeneric, WrapperGeneric, InputText, SectionGeneric, LogoGeneric, LoadMore, LoadOverlay },
+  name: 'SearchMain',
+  components: { SearchTable, WrapperGeneric, InputText, SectionGeneric, LogoGeneric },
   mounted () {
     this.getPosts()
   },
   data () {
     return {
       state: {
-        isLoading: false
+        isLoading: false,
+        progress: 0
       },
       assets: { logoLSPD },
       search: {},
@@ -52,11 +58,12 @@ export default {
       pages: {
         current: 0,
         max: 0,
-        items: 0
+        items: 0,
+        itemsByPage: 50
       },
       config: {
         rows: {
-          id: { label: 'ID', style: { width: '20px', textAlign: 'center' } },
+          id: { label: 'ID', style: { width: '100px', textAlign: 'center' } },
           firstname: { label: 'Prénom', style: { width: '35%' } },
           lastname: { label: 'Nom', style: { width: '35%', textTransform: 'uppercase', fontWeight: 800 } },
           phone: { label: 'Téléphone', style: { width: '20%', textAlign: 'center' } }
@@ -70,24 +77,18 @@ export default {
       
       const params = {
         search: this.search,
-        page: this.pages.current
+        page: this.pages.current,
+        limit: this.pages.itemsByPage
       }
       
       this.$set(this.state, 'isLoading', true)
       const response = await TestService.fetchPosts(params)
       
-      setTimeout(() => {
-        this.$set(this.state, 'isLoading', false)
-      }, 1000)
+      setTimeout(() => this.$set(this.state, 'isLoading', false), 1000)
       
       const current = append ? this.users : []
       const users = response.data.users.map((value) => {
-        return {
-          id: value.user_id,
-          firstname: value.firstname,
-          lastname: value.name,
-          phone: value.phone
-        }
+        return { id: value.user_id, firstname: value.firstname, lastname: value.name, phone: value.phone }
       })
       
       this.$set(this.pages, 'max', response.data.pages)
@@ -103,6 +104,12 @@ export default {
     onLoadMore() {
       this.$set(this.pages, 'current', this.pages.current + 1)
       this.getPosts(true)
+    },
+    onProgress(percentage) {
+      const currentItems = this.pages.itemsByPage * (this.pages.current + 1)
+      const maxItems = this.pages.itemsByPage * (this.pages.max + 1)
+            
+      this.$set(this.state, 'progress', (percentage * currentItems) / maxItems)
     }
   }
 }
@@ -118,11 +125,37 @@ export default {
     background-color: var(--color-background-medium);
   }
   
-  .Test_logo {
-    margin-bottom: 30px;
+  .Test_form {
+    display: flex;
+    width: 100%;
+    align-items: center;
   }
   
   .InputTest {
     display: inline-block;
+    margin-left: 10px;
+  }
+  
+  .SubmitTest {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    color: white;
+    background: var(--color-gradient-main);
+  }
+  
+  .ScrollView {
+    width: 100%;
+    overflow-y: scroll;
+  }
+  
+  .ProgressBar {
+    position: fixed;
+    bottom: 0;
+    height: 5px;
+    width: 100%;
+    border-radius: 2px;
+    background: var(--color-gradient-main);
+    transform-origin: left;
   }
 </style>

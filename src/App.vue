@@ -17,6 +17,8 @@ export default {
   --color-text-main: #ffffff;
   --color-text-dark: #585858;
   
+  --color-gradient-main: linear-gradient(to right, #8e2de2, #4a00e0);
+  
   --color-grid-lines: #434749;
   --color-label: #ffffff;
   --color-background-light: #22292d;
@@ -33,7 +35,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-  
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

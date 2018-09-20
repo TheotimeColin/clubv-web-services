@@ -1,16 +1,9 @@
 <template>
   <div class="Table">
-    <table class="Table_head">
-      <TableCell v-for="head in config.rows" :style="head.style" :head="true">{{ head.label }}</TableCell>
-    </table>
-    <div class="Table_scroll">
-      <table class="Table_data">
-        <tr v-for="row in finalData">
-          <TableCell v-for="property in row" :style="property.style">
-            {{ property.value }}
-          </TableCell>
-        </tr>
-      </table>
+    <div class="Table_row" v-for="row in finalData">
+      <TableCell v-for="cell in row" :style="cell.style">
+        {{ cell.value }}
+      </TableCell>
     </div>
   </div>
 </template>
@@ -47,18 +40,15 @@ export default {
 <style scoped>
   .Table {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .Table_data,
-  .Table_head {
+    display: table;
     width: 100%;
-    border-spacing: 0;
   }
   
-  .Table tr:nth-of-type(odd) {
+  .Table .Table_row:nth-of-type(odd) {
     background-color: var(--color-background-light);
+  }
+  
+  .Table_row {
+    display: table-row;
   }
 </style>

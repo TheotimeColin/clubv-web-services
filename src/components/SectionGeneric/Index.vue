@@ -38,10 +38,11 @@ export default {
 <style scoped>
   .Section {
     position: relative;
-    overflow-y: auto;
+    overflow: hidden;
   }
   
   .Section--full {
+    display: flex;
     background-color: var(--color-background-dark);
   }
   
@@ -57,7 +58,7 @@ export default {
   .Section--header {
     display: flex;
     align-items: center;
-    height: 250px;
+    height: 150px;
     flex-shrink: 0;
   }
 </style>

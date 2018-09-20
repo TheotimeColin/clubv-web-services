@@ -18,5 +18,6 @@ export default {
     background-image: url("../../assets/img/patterns/topographic-1.svg");
     background-size: 400px;
     opacity: 0.05;
+    pointer-events: none;
   }
 </style>
