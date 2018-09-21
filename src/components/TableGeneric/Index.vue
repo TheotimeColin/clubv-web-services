@@ -4,18 +4,23 @@
       <TableCell v-for="cell in row" :style="cell.style">
         {{ cell.value }}
       </TableCell>
+      <TableCell class="Table_click" v-if="clickable">
+        <router-link :to="routerLink(row)">></router-link>
+      </TableCell>
     </div>
   </div>
 </template>
 
 <script>
+import slugify from '@sindresorhus/slugify'
 import TableCell from './TableCell'
-  
+
 export default {
   name: 'TableGeneric',
   components: { TableCell },
   props: {
     data: { type: Array, required: true, default: () => [] },
+    clickable: { type: Boolean, default: false },
     config: { type: Object, default: { rows: [] } }
   },
   computed: {
@@ -32,6 +37,14 @@ export default {
         
         return data
       })
+    }
+  },
+  methods: {
+    routerLink(row) {
+      let link = this.config.link.base
+      let parameters = this.config.link.parameters.map((param) => row[param].value)
+      
+      return link + slugify(parameters.join('-'))
     }
   }
 }
@@ -50,5 +63,10 @@ export default {
   
   .Table_row {
     display: table-row;
+  }
+  
+  .Table_click {
+    width: 65px;
+    text-align: center;
   }
 </style>

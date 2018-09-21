@@ -62,11 +62,15 @@ export default {
         itemsByPage: 50
       },
       config: {
+        link: {
+          base: '/records/',
+          parameters: ['id', 'lastname']
+        },
         rows: {
           id: { label: 'ID', style: { width: '100px', textAlign: 'center' } },
           firstname: { label: 'Prénom', style: { width: '35%' } },
           lastname: { label: 'Nom', style: { width: '35%', textTransform: 'uppercase', fontWeight: 800 } },
-          phone: { label: 'Téléphone', style: { width: '20%', textAlign: 'center' } }
+          phone: { label: 'Téléphone', style: { whiteSpace: 'nowrap', textAlign: 'center' } }
         }
       }
     }
@@ -84,12 +88,17 @@ export default {
       this.$set(this.state, 'isLoading', true)
       const response = await TestService.fetchPosts(params)
       
-      setTimeout(() => this.$set(this.state, 'isLoading', false), 1000)
+      setTimeout(() => this.$set(this.state, 'isLoading', false), 0)
       
       const current = append ? this.users : []
-      const users = response.data.users.map((value) => {
-        return { id: value.user_id, firstname: value.firstname, lastname: value.name, phone: value.phone }
-      })
+      const users = response.data.users.map((value) => (
+        {
+          id: value.user_id,
+          firstname: value.firstname,
+          lastname: value.name,
+          phone: value.phone
+        }
+      ))
       
       this.$set(this.pages, 'max', response.data.pages)
       this.$set(this.pages, 'items', response.data.items)

@@ -1,12 +1,28 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition :name="transitionName" mode="in-out">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      transitionName: ''
+    }
+  },
+  created() {
+    this.$router.beforeEach((to, from, next) => {
+      let transitionName = to.meta.transitionName || from.meta.transitionName
+      
+      this.$set(this, 'transitionName', transitionName)
+      
+      next()
+    })
+  }
 }
 </script>
 
@@ -34,7 +50,30 @@ export default {
   font-size: 25px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
+  
+#app > :first-child {
+  position: relative;
+  z-index: 100000;
+}
+
+.slideUp {
+  backface-visibility: hidden
+}
+  
+.slideUp-enter-active, .slideUp-leave-active {
+  transition: opacity 5s;
+}
+
+.slideUp-enter {
+  opacity: 0;
+}
+  
+.slideUp-enter-to {
+  opacity: 1;
+}
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
