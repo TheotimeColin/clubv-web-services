@@ -1,19 +1,10 @@
 <template>
   <div class="Test">
     
-    <SectionGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
-      <WrapperGeneric>
-        <div class="Test_form">
-          <LogoGeneric class="Test_logo" :source="assets.logoLSPD" :width="100" />
-          <p>Recherche</p>
-          <form @submit="() => this.onSubmitSearch()" action="#">
-            <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstname: v })"/>
-            <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastname: v })"/>
-            <button class="SubmitTest" type="submit">></button>
-          </form>
-        </div>
-      </WrapperGeneric>
-    </SectionGeneric>
+    <HeaderMain
+      @submit-search="(v) => this.onSubmitSearch(v)"
+      @change-search="(v) => this.onChangeSearch(v)"
+    />
     
     <SearchTable
       :config="config"
@@ -23,26 +14,21 @@
       @load-more="() => onLoadMore()"
       @on-scroll="(percentage) => onProgress(percentage)"
     />
-    
-    <div class="ProgressBar" :style="{ transform: `scaleX(${ state.progress })` }"></div>
+
+    <ProgressBar :progress="state.progress" />
   </div>
 </template>
 
 <script>
 import TestService from '@/services/TestService'
-
-import WrapperGeneric from '@/components/WrapperGeneric'
-import SectionGeneric from '@/components/SectionGeneric'
-import InputText from '@/components/InputGeneric/InputText'
-import LogoGeneric from '@/components/LogoGeneric'
   
+import HeaderMain from '@/layout/HeaderMain'
 import SearchTable from '@/layout/SearchTable'
-  
-import logoLSPD from '@/assets/img/icons/lspd.png'
+import ProgressBar from '@/components/ProgressBar'
   
 export default {
   name: 'SearchMain',
-  components: { SearchTable, WrapperGeneric, InputText, SectionGeneric, LogoGeneric },
+  components: { SearchTable, HeaderMain, ProgressBar },
   mounted () {
     this.getPosts()
   },
@@ -52,7 +38,6 @@ export default {
         isLoading: false,
         progress: 0
       },
-      assets: { logoLSPD },
       search: {},
       users: [],
       pages: {
@@ -88,7 +73,7 @@ export default {
       this.$set(this.state, 'isLoading', true)
       const response = await TestService.fetchPosts(params)
       
-      setTimeout(() => this.$set(this.state, 'isLoading', false), 0)
+      setTimeout(() => this.$set(this.state, 'isLoading', false), 1000)
       
       const current = append ? this.users : []
       const users = response.data.users.map((value) => (
@@ -132,39 +117,5 @@ export default {
     height: 100vh;
     overflow: hidden;
     background-color: var(--color-background-medium);
-  }
-  
-  .Test_form {
-    display: flex;
-    width: 100%;
-    align-items: center;
-  }
-  
-  .InputTest {
-    display: inline-block;
-    margin-left: 10px;
-  }
-  
-  .SubmitTest {
-    display: inline-block;
-    width: 70px;
-    height: 70px;
-    color: white;
-    background: var(--color-gradient-main);
-  }
-  
-  .ScrollView {
-    width: 100%;
-    overflow-y: scroll;
-  }
-  
-  .ProgressBar {
-    position: fixed;
-    bottom: 0;
-    height: 5px;
-    width: 100%;
-    border-radius: 2px;
-    background: var(--color-gradient-main);
-    transform-origin: left;
   }
 </style>

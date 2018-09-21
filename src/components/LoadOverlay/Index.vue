@@ -14,7 +14,7 @@ export default {
 <style scoped>
   .LoadOverlay {
     position: absolute;
-    z-index: 100;
+    z-index: 50;
     bottom: 0;
     left: 0;
     width: 100%;

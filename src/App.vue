@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition :name="transitionName" mode="in-out">
+    <transition :name="transition.name" :mode="transition.mode" :enter-active-class="transition.active">
       <router-view/>
     </transition>
   </div>
@@ -11,14 +11,32 @@ export default {
   name: 'App',
   data() {
     return {
-      transitionName: ''
+      transition: {
+        name: 'fade',
+        mode: 'out-in',
+        active: ''
+      }
     }
   },
   created() {
     this.$router.beforeEach((to, from, next) => {
       let transitionName = to.meta.transitionName || from.meta.transitionName
       
-      this.$set(this, 'transitionName', transitionName)
+      if (to.meta.transitionName === 'slideUp') {
+        this.$set(this, 'transition', {
+          name: transitionName,
+          mode: 'in-out',
+          active: 'slideUp-enter-active'
+        })
+      }
+      
+      if (from.meta.transitionName === 'slideUp') {
+        this.$set(this, 'transition', {
+          name: 'slideDown',
+          mode: 'in-out',
+          active: null
+        })
+      }
       
       next()
     })
@@ -52,26 +70,38 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
 }
-  
-#app > :first-child {
-  position: relative;
-  z-index: 100000;
-}
 
-.slideUp {
-  backface-visibility: hidden
+.slideUp-enter-active,
+.slideDown-leave-active {
+  animation-duration: 350ms;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(.46,.9,.47,.99);
+  animation-name: slide-up;
 }
   
-.slideUp-enter-active, .slideUp-leave-active {
-  transition: opacity 5s;
+  .slideDown-leave-active {
+    animation-timing-function: cubic-bezier(.46,.9,.47,.99);
+  }
+  
+.slideUp-enter-active {
+  z-index: 1000;
+  top: 0;
+  position: absolute;
+  width: 100%;
 }
+  
+.slideDown-leave-active {
+  animation-direction: reverse;
+}
+  
+@keyframes slide-up {
+  from {
+    transform: translate3d(0, 100vh, 0);
+  }
 
-.slideUp-enter {
-  opacity: 0;
-}
-  
-.slideUp-enter-to {
-  opacity: 1;
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 
