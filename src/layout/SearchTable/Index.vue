@@ -1,16 +1,15 @@
 <template>
-  <SectionGeneric class="SearchTable" :modifiers="[ 'full' ]">
-    <LoadOverlay v-if="displayLoading" />
+  <div class="SearchTable">
 
     <div class="ScrollView" @scroll="(e) => this.onScroll(e)">
       <TableHead :config="config" />
       
       <div class="ScrollView_view">
-        <TableGeneric :data="data" :config="config" :clickable="true" />
+        <TableGeneric :data="data" :config="config" :clickable="true" :loading="displayLoading" />
         <LoadMore @load-more="() => this.onLoadMore()" v-if="pages.current < pages.max">Charger plus ({{ pages.items }} entrées restantes)</LoadMore>
       </div>
     </div>
-  </SectionGeneric>
+  </div>
 </template>
 
 <script>
@@ -41,9 +40,16 @@ export default {
 </script>
 
 <style scoped>
+  .SearchTable {
+    height: 100%;
+  }
+  
   .ScrollView {
-    margin-top: 33px;
+    padding-top: 33px;
     width: 100%;
+    height: 100%;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
   }
 </style>

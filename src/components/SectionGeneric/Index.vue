@@ -50,11 +50,6 @@ export default {
     overflow: hidden;
   }
   
-  .Section--shadow {
-    box-shadow: 0 0 55px 10px rgba(0, 0, 0, 0.5);
-    z-index: 1;
-  }
-  
   .Section--header {
     display: flex;
     align-items: center;

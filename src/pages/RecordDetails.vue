@@ -1,7 +1,6 @@
 <template>
   <div class="RecordDetails">
     <router-link to='/records'>Back</router-link>
-    lorem ipsum lorem ipsum
   </div>
 </template>
 

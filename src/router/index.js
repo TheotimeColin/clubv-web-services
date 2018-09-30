@@ -9,7 +9,16 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    { path: '/records', component: SearchMain },
-    { path: '/records/:id', component: RecordDetails, meta: { transitionName: 'slideUp' }  }
+    {
+      path: '/records',
+      component: SearchMain
+    },
+    {
+      path: '/records/:id',
+      component: RecordDetails,
+      meta: {
+        transitionName: 'slideUp',
+      }
+    }
   ]
 })

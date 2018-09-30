@@ -1,9 +1,10 @@
 <template>
   <div class="Table">
     <div class="Table_row" v-for="row in finalData">
-      <TableCell v-for="cell in row" :style="cell.style">
-        {{ cell.value }}
-      </TableCell>
+        <TableCell v-for="cell in row" :style="cell.style">
+          {{ cell.value }}
+          <TextPlaceholder :display="cell.value == ''"/>
+        </TableCell>
       <TableCell class="Table_click" v-if="clickable">
         <router-link :to="routerLink(row)"><IconGeneric name="arrowRightWhite" :width="12"/></router-link>
       </TableCell>
@@ -15,28 +16,30 @@
 import slugify from '@sindresorhus/slugify'
   
 import IconGeneric from '@/components/IconGeneric'
+import TextPlaceholder from '@/components/Loaders/TextPlaceholder'
 import TableCell from './TableCell'
 
 export default {
   name: 'TableGeneric',
-  components: { TableCell, IconGeneric },
+  components: { TableCell, IconGeneric, TextPlaceholder },
   props: {
     data: { type: Array, required: true, default: () => [] },
     clickable: { type: Boolean, default: false },
-    config: { type: Object, default: { rows: [] } }
+    config: { type: Object, default: { rows: [] } },
+    loading: { type: Boolean, default: false }
   },
   computed: {
     finalData () {
       return this.data.map((single) => {
         let data = {}
-        
-        Object.keys(single).forEach((key) => {
+
+        Object.keys(this.config.rows).forEach((key) => {
           data[key] = {
             style: this.config.rows[key].style,
-            value: single[key]
+            value: single[key] ? single[key] : ''
           }
         })
-        
+
         return data
       })
     }

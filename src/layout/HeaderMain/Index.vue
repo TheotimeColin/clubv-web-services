@@ -1,7 +1,7 @@
 <template>
   <SectionGeneric
     :pattern="true"
-    :modifiers="[ 'shadow', 'header', { name: 'header-mini', active: mini } ]"
+    :modifiers="[ 'header', { name: 'header-mini', active: mini } ]"
   >
     <WrapperGeneric>
       <div class="Test_form">

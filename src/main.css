@@ -1,0 +1,18 @@
+@import './reset.css';
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400i,700');
+  
+:root {
+  --color-text-main: #ffffff;
+  --color-text-dark: #585858;
+  
+  --color-gradient-main: linear-gradient(to right, #8e2de2, #4a00e0);
+  
+  --color-grid-lines: #434749;
+  --color-label: #ffffff;
+  --color-background-light: #22292d;
+  --color-background-medium: #2a2f33;
+  --color-background-dark: #191f23;
+  --color-background-darker: #0d0f10;
+}
+  

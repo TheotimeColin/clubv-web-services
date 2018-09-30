@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <transition :name="transition.name" :mode="transition.mode" :enter-active-class="transition.active">
-      <router-view/>
-    </transition>
+    <HeaderMain
+      @submit-search="(v) => this.onSubmitSearch(v)"
+      @change-search="(v) => this.onChangeSearch(v)"
+    />
+    
+    <div class="App_container">
+      <transition
+        :name="transition.name"
+        :mode="transition.mode"
+        :enter-active-class="transition.active"
+      >
+        <router-view/>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
+import HeaderMain from '@/layout/HeaderMain'
+  
 export default {
   name: 'App',
+  components: { HeaderMain },
   data() {
     return {
       transition: {
@@ -44,35 +58,33 @@ export default {
 }
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400i,700');
-
-:root {
-  --color-text-main: #ffffff;
-  --color-text-dark: #585858;
-  
-  --color-gradient-main: linear-gradient(to right, #8e2de2, #4a00e0);
-  
-  --color-grid-lines: #434749;
-  --color-label: #ffffff;
-  --color-background-light: #22292d;
-  --color-background-medium: #2a2f33;
-  --color-background-dark: #191f23;
-  --color-background-darker: #0d0f10;
-}
-  
+<style lang="scss">
+@import 'main.css';
   
 #app {
   font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
   color: var(--color-text-main);
   font-size: 25px;
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-background-medium);
 }
 
+.App_container {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+  
 .slideUp-enter-active,
-.slideDown-leave-active {
+.slideDown-leave {
   animation-duration: 350ms;
   animation-fill-mode: both;
   animation-timing-function: cubic-bezier(.46,.9,.47,.99);
@@ -95,77 +107,19 @@ export default {
   animation-direction: reverse;
 }
   
+.slideUp-leave-active,
+.slideDown-leave-active {
+  position: absolute;
+  top: -9999px;
+}
+  
 @keyframes slide-up {
   from {
-    transform: translate3d(0, 100vh, 0);
+    transform: translate3d(100vh, 0, 0);
   }
 
   100% {
     transform: translate3d(0, 0, 0);
   }
-}
-
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video, button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  box-sizing: border-box;
-  background: transparent;
-  outline: none;
-}
-  
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-  
-body {
-  line-height: 1;
-}
-  
-ol, ul {
-  list-style: none;
-}
-  
-blockquote, q {
-  quotes: none;
-}
-  
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-  
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-  
-input {
-  width: auto;
-  font-size: inherit;
-  font-family: inherit;
-  border: none;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  outline: none;
 }
 </style>

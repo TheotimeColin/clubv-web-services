@@ -1,12 +1,5 @@
 <template>
   <div class="Test">
-    
-    <HeaderMain
-      @submit-search="(v) => this.onSubmitSearch(v)"
-      @change-search="(v) => this.onChangeSearch(v)"
-      :mini="hasProgressed"
-    />
-    
     <SearchTable
       :config="config"
       :data="users"
@@ -23,13 +16,12 @@
 <script>
 import TestService from '@/services/TestService'
   
-import HeaderMain from '@/layout/HeaderMain'
 import SearchTable from '@/layout/SearchTable'
 import ProgressBar from '@/components/ProgressBar'
   
 export default {
   name: 'SearchMain',
-  components: { SearchTable, HeaderMain, ProgressBar },
+  components: { SearchTable, ProgressBar },
   mounted () {
     this.getPosts()
   },
@@ -45,7 +37,7 @@ export default {
         current: 0,
         max: 0,
         items: 0,
-        itemsByPage: 50
+        itemsByPage: 20
       },
       config: {
         link: {
@@ -77,23 +69,34 @@ export default {
       }
       
       this.$set(this.state, 'isLoading', true)
+      
+      this.$set(this, 'users', this.users.concat(new Array(this.pages.itemsByPage).fill(1)))
+      
+      await new Promise((resolve) => setTimeout(() => resolve(), 1000));
+      
       const response = await TestService.fetchPosts(params)
-      
-      setTimeout(() => this.$set(this.state, 'isLoading', false), 1000)
-      
-      const current = append ? this.users : []
-      const users = response.data.users.map((value) => (
-        {
-          id: value.user_id,
-          firstname: value.firstname,
-          lastname: value.name,
-          phone: value.phone
-        }
-      ))
-      
+      this.$set(this.state, 'isLoading', false)
       this.$set(this.pages, 'max', response.data.pages)
       this.$set(this.pages, 'items', response.data.items)
-      this.$set(this, 'users', current.concat(users))
+      
+      const current = append ? this.users : []
+      
+      response.data.users.forEach((value, i) => {
+        setTimeout(() => {
+          let newTable = this.users.slice();
+
+          newTable[this.pages.current * this.pages.itemsByPage + i] = {
+            id: value.user_id,
+            firstname: value.firstname,
+            lastname: value.name,
+            phone: value.phone
+          }
+
+          this.$set(this, 'users', newTable)
+        }, i * 100)
+      })
+      
+      
     },
     async onSubmitSearch() {
       this.getPosts()
@@ -117,11 +120,6 @@ export default {
 
 <style scoped>
   .Test {
-    display: flex;
-    flex-direction: column;
-    align-content: stretch;
-    height: 100vh;
-    overflow: hidden;
-    background-color: var(--color-background-medium);
+    height: 100%;
   }
 </style>
