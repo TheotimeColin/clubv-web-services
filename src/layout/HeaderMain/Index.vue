@@ -1,13 +1,17 @@
 <template>
-  <SectionGeneric class="Test_upper" :pattern="true" :modifiers="[ 'shadow', 'header' ]">
+  <SectionGeneric
+    :pattern="true"
+    :modifiers="[ 'shadow', 'header', { name: 'header-mini', active: mini } ]"
+  >
     <WrapperGeneric>
       <div class="Test_form">
-        <LogoGeneric class="Test_logo" :source="assets.logoLSPD" :width="100" />
-        <p>Recherche</p>
-        <form @submit="() => this.onSubmitSearch()" action="#">
+        <IconGeneric class="Test_logo" name="logoLSPD" :width="mini ? 70 : 100" />
+        <form class="Test_form" @submit="(e) => this.onSubmitSearch(e)" action="#">
           <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstname: v })"/>
           <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastname: v })"/>
-          <button class="SubmitTest" type="submit">></button>
+          <button class="SubmitTest" type="submit">
+            <IconGeneric :width="15" name="arrowRightWhite" />
+          </button>
         </form>
       </div>
     </WrapperGeneric>
@@ -19,19 +23,17 @@ import WrapperGeneric from '@/components/WrapperGeneric'
 import SectionGeneric from '@/components/SectionGeneric'
 import InputText from '@/components/InputGeneric/InputText'
 import LogoGeneric from '@/components/LogoGeneric'
-  
-import logoLSPD from '@/assets/img/icons/lspd.png'
+import IconGeneric from '@/components/IconGeneric'
   
 export default {
   name: 'HeaderMain',
-  components: { WrapperGeneric, InputText, SectionGeneric, LogoGeneric },
-  data () {
-    return {
-      assets: { logoLSPD }
-    }
+  components: { WrapperGeneric, InputText, SectionGeneric, LogoGeneric, IconGeneric },
+  props: {
+    mini: { type: Boolean, default: false }
   },
   methods: {
-    onSubmitSearch () {
+    onSubmitSearch (e) {
+      e.preventDefault()
       this.$emit('submit-search')
     },
     onChangeSearch (search) {
@@ -46,17 +48,14 @@ export default {
     display: flex;
     width: 100%;
     align-items: center;
-  }
-  
-  .InputTest {
-    display: inline-block;
-    margin-left: 10px;
+    justify-content: space-around;
   }
   
   .SubmitTest {
     display: inline-block;
     width: 70px;
     height: 70px;
+    line-height: 70px;
     color: white;
     background: var(--color-gradient-main);
   }

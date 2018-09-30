@@ -79,11 +79,12 @@ export default {
   animation-name: slide-up;
 }
   
-  .slideDown-leave-active {
-    animation-timing-function: cubic-bezier(.46,.9,.47,.99);
-  }
+.slideDown-leave-active {
+  animation-timing-function: cubic-bezier(.46,.9,.47,.99);
+}
   
-.slideUp-enter-active {
+.slideUp-enter-active,
+.slideDown-leave-active {
   z-index: 1000;
   top: 0;
   position: absolute;

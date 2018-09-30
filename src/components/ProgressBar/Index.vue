@@ -15,5 +15,13 @@ export default {
 </script>
 
 <style scoped>
-  
+  .ProgressBar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100%;
+    transform-origin: left;
+    background: var(--color-gradient-main);
+  }
 </style>

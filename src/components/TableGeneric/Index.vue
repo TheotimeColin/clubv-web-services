@@ -5,7 +5,7 @@
         {{ cell.value }}
       </TableCell>
       <TableCell class="Table_click" v-if="clickable">
-        <router-link :to="routerLink(row)">></router-link>
+        <router-link :to="routerLink(row)"><IconGeneric name="arrowRightWhite" :width="12"/></router-link>
       </TableCell>
     </div>
   </div>
@@ -13,11 +13,13 @@
 
 <script>
 import slugify from '@sindresorhus/slugify'
+  
+import IconGeneric from '@/components/IconGeneric'
 import TableCell from './TableCell'
 
 export default {
   name: 'TableGeneric',
-  components: { TableCell },
+  components: { TableCell, IconGeneric },
   props: {
     data: { type: Array, required: true, default: () => [] },
     clickable: { type: Boolean, default: false },

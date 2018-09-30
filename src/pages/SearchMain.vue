@@ -4,6 +4,7 @@
     <HeaderMain
       @submit-search="(v) => this.onSubmitSearch(v)"
       @change-search="(v) => this.onChangeSearch(v)"
+      :mini="hasProgressed"
     />
     
     <SearchTable
@@ -60,6 +61,11 @@ export default {
       }
     }
   },
+  computed: {
+    hasProgressed () {
+      return this.state.progress > 0 ? true : false
+    }
+  },
   methods: {
     async getPosts (append = false) {
       if (!append) this.$set(this.pages, 'current', 0)
@@ -102,7 +108,7 @@ export default {
     onProgress(percentage) {
       const currentItems = this.pages.itemsByPage * (this.pages.current + 1)
       const maxItems = this.pages.itemsByPage * (this.pages.max + 1)
-            
+      
       this.$set(this.state, 'progress', (percentage * currentItems) / maxItems)
     }
   }

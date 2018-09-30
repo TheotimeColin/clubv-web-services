@@ -58,7 +58,12 @@ export default {
   .Section--header {
     display: flex;
     align-items: center;
-    height: 150px;
+    height: 200px;
     flex-shrink: 0;
+    transition: height 200ms ease;
+  }
+  
+  .Section--header-mini {
+    height: 100px;
   }
 </style>
