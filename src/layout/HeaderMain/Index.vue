@@ -34,10 +34,10 @@ export default {
   methods: {
     onSubmitSearch (e) {
       e.preventDefault()
-      this.$emit('submit-search')
+      this.$store.dispatch('search')
     },
     onChangeSearch (search) {
-      this.$emit('change-search', search)
+      this.$store.commit('changeSearch', search)
     }
   }
 }

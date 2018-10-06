@@ -6,7 +6,7 @@
       
       <div class="ScrollView_view">
         <TableGeneric :data="data" :config="config" :clickable="true" :loading="displayLoading" />
-        <LoadMore @load-more="() => this.onLoadMore()" v-if="pages.current < pages.max">Charger plus ({{ pages.items }} entrées restantes)</LoadMore>
+        <LoadMore @load-more="() => this.onLoadMore()" v-if="pages.current < pages.totalPages">Charger plus ({{ pages.totalItems }} entrées restantes)</LoadMore>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   components: { TableGeneric, SectionGeneric, LoadMore, LoadOverlay, TableHead },
   props: {
     displayLoading: { type: Boolean, default: false },
-    pages: { type: Object, default: () => ({ current: 0, max: 0, items: 0 }) },
+    pages: { type: Object, default: () => ({ current: 0, totalPages: 0, totalItems: 0 }) },
     data: { type: Array, default: () => [] },
     config: { type: Object, default: () => {} }
   },

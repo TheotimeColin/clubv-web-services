@@ -2,8 +2,7 @@
   <div class="Table">
     <div class="Table_row" v-for="row in finalData">
         <TableCell v-for="cell in row" :style="cell.style">
-          {{ cell.value }}
-          <TextPlaceholder :display="cell.value == ''"/>
+          <TextPlaceholder :display="cell.value == ''" :placeholder="cell.placeholder">{{ cell.value }}</TextPlaceholder>
         </TableCell>
       <TableCell class="Table_click" v-if="clickable">
         <router-link :to="routerLink(row)"><IconGeneric name="arrowRightWhite" :width="12"/></router-link>
@@ -35,7 +34,7 @@ export default {
 
         Object.keys(this.config.rows).forEach((key) => {
           data[key] = {
-            style: this.config.rows[key].style,
+            ...this.config.rows[key],
             value: single[key] ? single[key] : ''
           }
         })

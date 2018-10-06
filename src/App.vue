@@ -3,6 +3,7 @@
     <HeaderMain
       @submit-search="(v) => this.onSubmitSearch(v)"
       @change-search="(v) => this.onChangeSearch(v)"
+      :mini="header.mini"
     />
     
     <div class="App_container">
@@ -25,6 +26,9 @@ export default {
   components: { HeaderMain },
   data() {
     return {
+      header: {
+        mini: false
+      },
       transition: {
         name: 'fade',
         mode: 'out-in',
@@ -51,6 +55,8 @@ export default {
           active: null
         })
       }
+      
+      this.$set(this.header, 'mini', to.meta.header.mini ? to.meta.header.mini : false)
       
       next()
     })

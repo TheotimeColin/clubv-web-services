@@ -11,13 +11,21 @@ export default new Router({
   routes: [
     {
       path: '/records',
-      component: SearchMain
+      component: SearchMain,
+      meta: {
+        header: {
+          mini: false
+        }
+      }
     },
     {
       path: '/records/:id',
       component: RecordDetails,
       meta: {
         transitionName: 'slideUp',
+        header: {
+          mini: true
+        }
       }
     }
   ]
