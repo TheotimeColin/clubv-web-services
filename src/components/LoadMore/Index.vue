@@ -19,7 +19,7 @@ export default {
 <style scoped>
   .LoadMore {
     color: var(--color-text-dark);
-    font-size: 20px;
+    font-size: var(font-size-main);
     text-align: center;
     display: block;
     width: 100%;

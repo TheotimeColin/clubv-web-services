@@ -59,6 +59,7 @@ export default {
     position: relative;
     display: table;
     width: 100%;
+    font-size: var(--font-size-big);
   }
   
   .Table .Table_row:nth-of-type(odd) {

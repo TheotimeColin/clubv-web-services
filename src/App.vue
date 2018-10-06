@@ -70,7 +70,7 @@ export default {
 #app {
   font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
   color: var(--color-text-main);
-  font-size: 25px;
+  font-size: var(--font-size-main);
   
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

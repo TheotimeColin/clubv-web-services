@@ -1,5 +1,9 @@
 <template>
-  <img class="IconGeneric" :src="src" :style="{ width: `${size.x}px`, height: `${size.y}px` }">
+  <img
+    class="IconGeneric"
+    :src="src"
+    :style="style"
+  >
 </template>
 
 <script>
@@ -11,7 +15,9 @@ export default {
   props: {
     width: { type: Number },
     height: { type: Number },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    mirrorX: { type: Boolean, default: false },
+    mirrorY: { type: Boolean, default: false }
   },
   computed: {
     size () {
@@ -22,6 +28,13 @@ export default {
     },
     src () {
       return this[this.name]
+    },
+    style () {
+      return {
+        width: `${this.size.x}px`,
+        height: `${this.size.y}px`,
+        transform: `scale3d(${ this.mirrorX ? -1 : 1 }, ${ this.mirrorY ? -1 : 1 }, 1)`
+      }
     }
   },
   data () {

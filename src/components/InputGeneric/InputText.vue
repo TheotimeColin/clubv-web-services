@@ -61,7 +61,7 @@ export default {
     top: 50%;
     left: 20px;
     z-index: 1;
-    font-size: 18px;
+    font-size: var(font-size-small);
     transform: translate3d(0, -50%, 0);
     color: var(--color-label);
     pointer-events: none;

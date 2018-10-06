@@ -24,6 +24,8 @@ export default {
 <style scoped lang="scss">
   .TextPlaceholder {
     position: relative;
+    font-size: inherit;
+    overflow: hidden;
   }
   
   .TextPlaceholder_graphic {
@@ -32,11 +34,11 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 110%;
     height: 100%;
     display: none;
     
-    animation: loading 800ms linear infinite alternate;
+    animation: loading 800ms ease-in-out infinite alternate;
   }
   
   .TextPlaceholder_transparent {
@@ -46,13 +48,13 @@ export default {
   
   .TextPlaceholder--display {
     
-    
     .TextPlaceholder_graphic {
       display: block;
     }
     
     .TextPlaceholder_text {
       opacity: 0;
+      display: none;
     }
     
     .TextPlaceholder_transparent {
@@ -63,8 +65,8 @@ export default {
   .TextPlaceholder_text {
     top: 0;
     opacity: 1;
-    // position: absolute;
-    transition: opacity 200ms linear;
+    display: block;
+    animation: appear 200ms linear;
   }
   
   .TextPlaceholder--leave {
@@ -77,7 +79,17 @@ export default {
     }
 
     to {
-      opacity: 0.7;
+      opacity: 0.8;
+    }
+  }
+  
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
     }
   }
   

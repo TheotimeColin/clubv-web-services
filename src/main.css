@@ -8,11 +8,14 @@
   
   --color-gradient-main: linear-gradient(to right, #8e2de2, #4a00e0);
   
-  --color-grid-lines: #434749;
+  --color-grid-lines: #273038;
   --color-label: #ffffff;
-  --color-background-light: #22292d;
-  --color-background-medium: #2a2f33;
-  --color-background-dark: #191f23;
+  --color-background-light: #1b2229;
+  --color-background-medium: #171e25;
+  --color-background-dark: #131a21;
   --color-background-darker: #0d0f10;
-}
   
+  --font-size-small: 12px;
+  --font-size-main: 18px;
+  --font-size-big: 22px;
+}
