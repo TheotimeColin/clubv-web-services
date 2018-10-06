@@ -5,7 +5,7 @@
       <TableHead :config="config" />
       
       <div class="ScrollView_view">
-        <TableGeneric :data="data" :config="config" :clickable="true" :loading="displayLoading" />
+        <TableGeneric :data="data" :config="config" :clickable="true" :loading="displayLoading" :pagination="pages"/>
         <LoadMore @load-more="() => this.onLoadMore()" v-if="pages.current < pages.totalPages">Charger plus ({{ pages.totalItems }} entrées restantes)</LoadMore>
       </div>
     </div>

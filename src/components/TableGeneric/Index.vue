@@ -1,8 +1,15 @@
 <template>
   <div class="Table">
-    <div class="Table_row" v-for="row in finalData">
+    <div class="Table_row" v-for="(row, i) in finalData">
         <TableCell v-for="cell in row" :style="cell.style">
-          <TextPlaceholder :display="cell.value == ''" :placeholder="cell.placeholder">{{ cell.value }}</TextPlaceholder>
+          <TextPlaceholder
+            class="Table_placeholder"
+            :display="cell.value == ''"
+            :placeholder="cell.placeholder"
+            :delay="delay(i)"
+          >
+              {{ cell.value }}
+          </TextPlaceholder>
         </TableCell>
       <TableCell class="Table_click" v-if="clickable">
         <router-link :to="routerLink(row)"><IconGeneric name="arrowRightWhite" :width="12"/></router-link>
@@ -25,7 +32,9 @@ export default {
     data: { type: Array, required: true, default: () => [] },
     clickable: { type: Boolean, default: false },
     config: { type: Object, default: { rows: [] } },
-    loading: { type: Boolean, default: false }
+    loading: { type: Boolean, default: false },
+    pagination: { type: Object },
+    animationDelay: { type: Number, default: 100 }
   },
   computed: {
     finalData () {
@@ -49,6 +58,13 @@ export default {
       let parameters = this.config.link.parameters.map((param) => row[param].value)
       
       return link + slugify(parameters.join('-'))
+    },
+    delay (id) {
+      if (!this.pagination) return 0
+      
+      let position = id - (this.pagination.current * this.pagination.itemsByPage)
+      
+      return position > 0 ? position * this.animationDelay : 0
     }
   }
 }

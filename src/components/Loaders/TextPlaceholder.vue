@@ -1,5 +1,5 @@
 <template>
-  <div class="TextPlaceholder" :class="[{ 'TextPlaceholder--display': display }]">
+  <div class="TextPlaceholder" :class="[{ 'TextPlaceholder--display': show }]">
     <div class="TextPlaceholder_graphic"></div>
     <div class="TextPlaceholder_transparent">{{ placeholder }}</div>
     <div class="TextPlaceholder_text">
@@ -11,12 +11,27 @@
 <script>
 export default {
   name: 'TextPlaceholder',
+  data () {
+    return {
+      show: false
+    }
+  },
   props: {
     display: { type: Boolean, default: false },
-    placeholder: { type: String, default: '/' }
+    placeholder: { type: String, default: '/' },
+    delay: { type: Number, default: 0 }
+  },
+  watch: {
+    display: {
+      immediate: true,
+      handler (value) {
+        setTimeout(() => this.$set(this, 'show', value), this.delay)
+      }
+    }
   },
   mounted () {
-    setTimeout(() => this.$el.classList.add('TextPlaceholder--created'), 100)
+    this.$set(this, 'show', this.display)
+    setTimeout(() => this.$el.classList.add('TextPlaceholder--created'))
   }
 }
 </script>
