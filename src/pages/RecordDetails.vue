@@ -6,7 +6,7 @@
         
         <div class="RecordDetails_header">
           <div class="RecordDetails_general">
-            <div class="RecordDetails_row" v-for="row in rows">
+            <div class="RecordDetails_row" v-for="row in general">
               <b>{{ row.label }} :</b>
               <TextPlaceholder class="RecordDetails_cell" :display="row.loading">
                 {{ row.value }}
@@ -16,6 +16,10 @@
           <div class="RecordDetails_pictureContainer">
             <div class="RecordDetails_picture" :style="{ backgroundImage: `url(${assets.person})` }"></div>
           </div>
+        </div>
+        
+        <div class="RecordDetails_permits">
+          <ButtonHorizontal v-for="row in permits">{{ row.label }}</ButtonHorizontal>
         </div>
       </div>
     </WrapperGeneric>
@@ -27,25 +31,32 @@ import WrapperGeneric from '@/components/WrapperGeneric'
 import SectionGeneric from '@/components/SectionGeneric'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import TextPlaceholder from '@/components/Loaders/TextPlaceholder'
+import ButtonHorizontal from '@/components/Buttons/ButtonHorizontal'
   
 import person from '@/assets/img/temp/person.png'
   
 export default {
   name: 'RecordDetails',
-  components: { WrapperGeneric, SectionGeneric, Breadcrumbs, TextPlaceholder },
+  components: { WrapperGeneric, SectionGeneric, Breadcrumbs, TextPlaceholder, ButtonHorizontal },
   mounted () {
     
   }, 
   data () {
     return {
       assets: { person }, 
-      rows: [
+      general: [
         { label: 'Prénom', value: 'Text', loading: true },
         { label: 'Nom', value: 'Text', loading: false },
         { label: 'Immatriculation', value: 'Text', loading: false },
         { label: 'Téléphone', value: 'Text', loading: true },
         { label: 'Citoyenneté', value: 'Text', loading: false },
         { label: 'Adresse', value: 'Text', loading: true },
+      ],
+      permits: [
+        { label: 'Permis de conduire' },
+        { label: 'Permis hélicoptère' },
+        { label: 'Permis port d\'armes' },
+        { label: 'Permis port d\'armes lourdes' }
       ]
     }
   },
@@ -54,7 +65,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .RecordDetails {
     display: flex;
     flex-direction: column;
@@ -111,5 +122,16 @@ export default {
     padding-bottom: 120%;
     background-color: green;
     background-size: cover;
+  }
+  
+  .RecordDetails_permits {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px -3px -3px;
+    
+    > * {
+      flex-basis: calc(50% - 6px);
+      margin: 3px;
+    }
   }
 </style>

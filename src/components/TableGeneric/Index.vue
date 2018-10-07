@@ -64,7 +64,7 @@ export default {
       
       let position = id - (this.pagination.current * this.pagination.itemsByPage)
       
-      return position > 0 ? position * this.animationDelay : 0
+      return position <= 0 || position > 12 ? 0 : position * this.animationDelay
     }
   }
 }
