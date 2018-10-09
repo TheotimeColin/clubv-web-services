@@ -7,8 +7,8 @@
       <div class="Test_form">
         <IconGeneric class="Test_logo" name="logoLSPD" :width="mini ? 70 : 100" />
         <form class="Test_form" @submit="(e) => this.onSubmitSearch(e)" action="#">
-          <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstname: v })"/>
-          <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastname: v })"/>
+          <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstName: v })"/>
+          <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastName: v })"/>
           <button class="SubmitTest" type="submit">
             <IconGeneric :width="15" name="arrowRightWhite" />
           </button>

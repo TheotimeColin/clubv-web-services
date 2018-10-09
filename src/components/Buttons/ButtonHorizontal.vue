@@ -19,7 +19,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--font-size-big);
+    font-size: var(--font-size-medium);
     font-weight: bold;
     border: 1px solid black;
     padding: 12px;

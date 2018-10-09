@@ -47,7 +47,7 @@ export default {
             value: single[key] ? single[key] : ''
           }
         })
-
+        
         return data
       })
     }

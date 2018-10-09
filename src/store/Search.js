@@ -5,8 +5,8 @@ export default {
     search: {
       users: [],
        arguments: {
-        firstname: '',
-        lastname: ''
+        firstName: '',
+        lastName: ''
       },
       pagination: {
         current: 0,
@@ -34,9 +34,9 @@ export default {
       
       let newUsers = response.data.users.map((value) => {
         return {
-          id: value.user_id,
-          firstname: value.firstname,
-          lastname: value.name,
+          id: value.id,
+          firstName: value.firstName,
+          lastName: value.lastName,
           phone: value.phone
         }
       });
