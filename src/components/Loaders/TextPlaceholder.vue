@@ -40,7 +40,6 @@ export default {
   .TextPlaceholder {
     position: relative;
     font-size: inherit;
-    overflow: hidden;
   }
   
   .TextPlaceholder_graphic {
@@ -49,7 +48,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    width: 110%;
+    width: 100%;
     height: 100%;
     display: none;
     

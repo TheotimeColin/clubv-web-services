@@ -10,7 +10,7 @@ export default {
       },
       pagination: {
         current: 0,
-        itemsByPage: 20,
+        itemsByPage: 50,
         totalPages: 0,
         totalItems: 0
       }

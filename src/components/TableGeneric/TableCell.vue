@@ -22,7 +22,7 @@ export default {
   }
   
   .TableCell--head {
-    font-size: var(font-size-small);
+    font-size: var(--font-size-small);
     padding: 8px;
     height: auto;
     border-bottom: 1px solid var(--color-grid-lines);

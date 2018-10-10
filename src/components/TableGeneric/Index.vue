@@ -1,7 +1,8 @@
 <template>
   <div class="Table">
+    <TableHead :config="config" :last-row="clickable" />
     <div class="Table_row" v-for="(row, i) in finalData">
-        <TableCell v-for="cell in row" :style="cell.style">
+      <TableCell v-for="cell in row" :style="cell.style">
           <TextPlaceholder
             class="Table_placeholder"
             :display="cell.value == ''"
@@ -24,10 +25,11 @@ import slugify from '@sindresorhus/slugify'
 import IconGeneric from '@/components/IconGeneric'
 import TextPlaceholder from '@/components/Loaders/TextPlaceholder'
 import TableCell from './TableCell'
+import TableHead from './TableHead'
 
 export default {
   name: 'TableGeneric',
-  components: { TableCell, IconGeneric, TextPlaceholder },
+  components: { TableCell, IconGeneric, TextPlaceholder, TableHead },
   props: {
     data: { type: Array, required: true, default: () => [] },
     clickable: { type: Boolean, default: false },

@@ -2,7 +2,6 @@
   <div class="SearchTable">
 
     <div class="ScrollView" @scroll="(e) => this.onScroll(e)">
-      <TableHead :config="config" />
       
       <div class="ScrollView_view">
         <TableGeneric :data="data" :config="config" :clickable="true" :loading="displayLoading" :pagination="pages"/>
@@ -14,14 +13,12 @@
 
 <script>
 import TableGeneric from '@/components/TableGeneric'
-import TableHead from '@/components/TableGeneric/TableHead'
 import SectionGeneric from '@/components/SectionGeneric'
 import LoadMore from '@/components/LoadMore'
-import LoadOverlay from '@/components/LoadOverlay'
 
 export default {
   name: 'SearchMain',
-  components: { TableGeneric, SectionGeneric, LoadMore, LoadOverlay, TableHead },
+  components: { TableGeneric, SectionGeneric, LoadMore },
   props: {
     displayLoading: { type: Boolean, default: false },
     pages: { type: Object, default: () => ({ current: 0, totalPages: 0, totalItems: 0 }) },
@@ -45,7 +42,6 @@ export default {
   }
   
   .ScrollView {
-    padding-top: 33px;
     width: 100%;
     height: 100%;
     overflow-y: scroll;
