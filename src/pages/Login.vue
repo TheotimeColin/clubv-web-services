@@ -1,17 +1,18 @@
 <template>
-  <div class="Home">
+  <SectionGeneric class="Home" :pattern="true">
     <WrapperGeneric>
       Hi
     </WrapperGeneric>
-  </div>
+  </SectionGeneric>
 </template>
 
 <script>
 import WrapperGeneric from '@/components/WrapperGeneric'
+import SectionGeneric from '@/components/SectionGeneric'
   
 export default {
   name: 'RecordDetails',
-  components: { WrapperGeneric }, 
+  components: { WrapperGeneric, SectionGeneric }, 
   data () {
     return {
     }
@@ -22,4 +23,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .Home {
+    min-height: 100vh;
+  }
 </style>
