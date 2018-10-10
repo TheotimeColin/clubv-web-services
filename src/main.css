@@ -5,17 +5,20 @@
 :root {
   --color-text-main: #ffffff;
   --color-text-dark: #585858;
+  --color-text-darker: #000000;
   
   --color-gradient-main: linear-gradient(to right, #8e2de2, #4a00e0);
   
-  --color-grid-lines: #273038;
+  --color-grid-lines: #4040404f;
   --color-label: #ffffff;
+  
+  --color-background-white: #ffffff;
   --color-background-light: #1b2229;
   --color-background-medium: #171e25;
   --color-background-dark: #131a21;
   --color-background-darker: #0d0f10;
   
   --font-size-small: 15px;
-  --font-size-main: 18px;
-  --font-size-big: 22px;
+  --font-size-main: 20px;
+  --font-size-big: 24px;
 }

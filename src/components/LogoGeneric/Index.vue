@@ -9,7 +9,7 @@ export default {
   name: 'LogoGeneric',
   props: {
     source: { default: false },
-    width: { type: Number }
+    width: { type: Number, default: 100 }
   }
 }
 </script>

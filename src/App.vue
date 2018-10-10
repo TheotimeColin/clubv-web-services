@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     headerClasses () {
-      return this.headerModifiers.map((modifier) => `Section--header-${modifier}`)
+      return this.headerModifiers.map((modifier) => `SectionGeneric--header-${modifier}`)
     }
   },
   created() {

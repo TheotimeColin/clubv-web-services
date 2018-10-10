@@ -3,13 +3,14 @@
     class="InputText"
     :class="[
       { 'InputText--focused' : isFocused },
-      { 'InputText--hasValue' : hasValue }
+      { 'InputText--hasValue' : hasValue },
+      ...classes
     ]"
   >
-    <label class="InputText_label">{{ label }}</label>
+    <InputLabel :active="isActive" :modifiers="modifiers">{{ label }}</InputLabel>
     <input
       class="InputText_input"
-      type="text"
+      :type="type"
       :required="required"
       value=""
       @focus="() => this.$set(this, 'isFocused', true)"
@@ -21,8 +22,14 @@
 </template>
 
 <script>
+import InputLabel from './InputLabel'
+  
+import ClassesMixin from '@/mixins/Classes'
+  
 export default {
   name: 'InputText',
+  components: { InputLabel },
+  mixins: [ ClassesMixin ],
   data () {
     return {
       value: '',
@@ -31,8 +38,15 @@ export default {
     }
   },
   props: {
+    type: { type: String, default: 'text' },
+    modifiers: { type: Array, default: () => [] },
     required: { type: Boolean, default: false },
     label: { type: String, default: '' }
+  },
+  computed: {
+    isActive () {
+      return this.hasValue || this.isFocused
+    }
   },
   methods: {
     onKeyup (e) {
@@ -45,7 +59,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .InputText,
   .InputText_input {
     font-weight: 800;
@@ -54,43 +68,16 @@ export default {
   .InputText {
     position: relative;
     z-index: 1;
-  }
-  
-  .InputText_label {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    z-index: 1;
-    font-size: var(font-size-small);
-    transform: translate3d(0, -50%, 0);
-    color: var(--color-label);
-    pointer-events: none;
-    opacity: 0.6;
     
-    transform-origin: left;
-    transition: all 150ms ease;
-  }
-  
-  .InputText--focused .InputText_label,
-  .InputText--hasValue .InputText_label {
-    opacity: 1;
-    transform: translate3d(-10px, -45px, 0) scale(0.9);
-  }
-  
-  .InputText--focused .InputText_input,
-  .InputText--hasValue .InputText_input {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-  }
-
-  .InputText:hover .InputText_input {
-    background-color: rgba(0, 0, 0, 0.2);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
   }
   
   .InputText_input {
     width: 100%;
     padding: 16px 20px;
-    font-size: 30px;
+    font-size: var(--font-size-big);
     text-transform: uppercase;
     background-color: rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -98,4 +85,43 @@ export default {
     
     transition: all 150ms ease;
   }
+  
+  .InputText--focused,
+  .InputText--hasValue {
+    
+    .InputText_input {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  .InputText--small {
+    margin-top: 15px;
+    
+    .InputText_input {
+      font-size: var(--font-size-medium);
+      color: var(--color-text-darker);
+      border: 1px solid var(--color-grid-lines);
+      border-bottom: 1px solid var(--color-grid-lines);
+      background-color: transparent;
+      padding: 12px 8px;
+      border-radius: 4px;
+      text-align: center;
+      text-transform: none;
+    }
+    
+    &:hover {
+      background-color: transparent;
+    }
+    
+    &.InputText--focused,
+    &.InputText--hasValue {
+      
+      .InputText_input {
+        background-color: transparent;
+        border-bottom: 1px solid var(--color-grid-lines);
+      }
+    }
+  }
+  
 </style>

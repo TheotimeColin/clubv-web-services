@@ -1,6 +1,6 @@
 <template>
   <div
-    class="Section"
+    class="SectionGeneric"
     :class="classes"
   >
     <PatternGeneric v-if="pattern" />
@@ -13,44 +13,36 @@
 import PatternGeneric from '@/components/PatternGeneric'
 import GridLinesGeneric from '@/components/GridLinesGeneric'
   
+import ClassesMixin from '@/mixins/Classes'
+  
 export default {
   name: 'SectionGeneric',
   components: { PatternGeneric, GridLinesGeneric },
+  mixins: [ ClassesMixin ],
   props: {
     modifiers: { type: Array, default: () => [] },
     pattern: { type: Boolean, default: false },
     lines: { type: Boolean, default: false },
-  },
-  computed: {
-    classes () {
-      return this.modifiers.map((modifier) => {
-        if (modifier.name) {
-          return modifier.active ? `Section--${modifier.name}` : ''
-        } else {
-          return `Section--${modifier}`
-        }
-      })
-    }
   }
 }
 </script>
 
 <style scoped>
-  .Section {
+  .SectionGeneric {
     position: relative;
     overflow: hidden;
   }
   
-  .Section--full {
+  .SectionGeneric--full {
     display: flex;
     background-color: var(--color-background-dark);
   }
   
-  .Section--no-overflow {
+  .SectionGeneric--no-overflow {
     overflow: hidden;
   }
   
-  .Section--header {
+  .SectionGeneric--header {
     display: flex;
     align-items: center;
     height: 200px;
@@ -59,11 +51,11 @@ export default {
     border-bottom: 1px solid var(--color-grid-lines);
   }
   
-  .Section--header-mini {
+  .SectionGeneric--header-mini {
     height: 100px;
   }
   
-  .Section--header-hidden {
+  .SectionGeneric--header-hidden {
     display: none;
   }
 </style>
