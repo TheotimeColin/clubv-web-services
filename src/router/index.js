@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import SearchMain from '@/pages/SearchMain'
 import RecordDetails from '@/pages/RecordDetails'
+import Login from '@/pages/Login'
 
 Vue.use(Router)
 
@@ -13,9 +14,7 @@ export default new Router({
       path: '/records',
       component: SearchMain,
       meta: {
-        header: {
-          mini: false
-        }
+        headerModifiers: []
       }
     },
     {
@@ -23,9 +22,14 @@ export default new Router({
       component: RecordDetails,
       meta: {
         transitionName: 'slideUp',
-        header: {
-          mini: true
-        }
+        headerModifiers: [ 'mini' ]
+      }
+    },
+    {
+      path: '/',
+      component: Login,
+      meta: {
+        headerModifiers: [ 'hidden' ]
       }
     }
   ]

@@ -62,4 +62,8 @@ export default {
   .Section--header-mini {
     height: 100px;
   }
+  
+  .Section--header-hidden {
+    display: none;
+  }
 </style>

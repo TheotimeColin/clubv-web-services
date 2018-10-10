@@ -24,7 +24,8 @@ export default {
 
 <style scoped>
   .Wrapper {
-    max-width: 1500px;
+    max-width: 1200px;
+    width: 95%;
     margin: 0 auto;
     padding: 0 20px;
   }

@@ -51,7 +51,8 @@ export default {
   }
   
   .InputTest {
-    margin: 0 5px;  
+    margin: 0 5px;
+    flex-grow: 1;
   }
   
   .SubmitTest {

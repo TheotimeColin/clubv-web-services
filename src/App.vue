@@ -3,7 +3,7 @@
     <HeaderMain
       @submit-search="(v) => this.onSubmitSearch(v)"
       @change-search="(v) => this.onChangeSearch(v)"
-      :mini="header.mini"
+      :class="headerClasses"
     />
     
     <div class="App_container">
@@ -26,9 +26,7 @@ export default {
   components: { HeaderMain },
   data() {
     return {
-      header: {
-        mini: false
-      },
+      headerModifiers: [],
       transition: {
         name: 'fade',
         mode: 'out-in',
@@ -36,7 +34,14 @@ export default {
       }
     }
   },
+  computed: {
+    headerClasses () {
+      return this.headerModifiers.map((modifier) => `Section--header-${modifier}`)
+    }
+  },
   created() {
+    this.$set(this, 'headerModifiers', this.$route.meta.headerModifiers)
+    
     this.$router.beforeEach((to, from, next) => {
       let transitionName = to.meta.transitionName || from.meta.transitionName
       
@@ -56,7 +61,7 @@ export default {
         })
       }
       
-      this.$set(this.header, 'mini', to.meta.header.mini ? to.meta.header.mini : false)
+      this.$set(this, 'headerModifiers', to.meta.headerModifiers)
       
       next()
     })
