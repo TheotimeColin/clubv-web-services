@@ -56,6 +56,7 @@ export default {
     height: 200px;
     flex-shrink: 0;
     transition: height 200ms ease;
+    border-bottom: 1px solid var(--color-grid-lines);
   }
   
   .Section--header-mini {
