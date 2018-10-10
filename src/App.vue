@@ -40,7 +40,7 @@ export default {
     }
   },
   created() {
-    this.$set(this, 'headerModifiers', this.$route.meta.headerModifiers)
+    if (this.$route.meta.headerModifiers) this.$set(this, 'headerModifiers', this.$route.meta.headerModifiers)
     
     this.$router.beforeEach((to, from, next) => {
       let transitionName = to.meta.transitionName || from.meta.transitionName
