@@ -1,10 +1,10 @@
-import TestService from '@/services/TestService'
+import SearchService from '@/services/SearchService'
 
 export default {
   state: {
     search: {
-      users: [],
-       arguments: {
+      citizens: [],
+      arguments: {
         firstName: '',
         lastName: ''
       },
@@ -20,9 +20,9 @@ export default {
     onSearchStart (state, loadMore = false) {
       this.state.search.pagination.current = loadMore ? this.state.search.pagination.current + 1 : 0
       
-      if (!loadMore) this.state.search.users = []
+      if (!loadMore) this.state.search.citizens = []
       
-      this.state.search.users = this.state.search.users.concat(
+      this.state.search.citizens = this.state.search.citizens.concat(
         new Array(this.state.search.pagination.itemsByPage).fill(1)
       )
     },
@@ -30,9 +30,9 @@ export default {
       this.state.search.pagination.totalPages = response.data.pages
       this.state.search.pagination.totalItems = response.data.items
       
-      this.state.search.users.splice(-this.state.search.pagination.itemsByPage)
+      this.state.search.citizens.splice(-this.state.search.pagination.itemsByPage)
       
-      let newUsers = response.data.users.map((value) => {
+      let newCitizens = response.data.citizens.map((value) => {
         return {
           id: value.id,
           firstName: value.firstName,
@@ -41,7 +41,7 @@ export default {
         }
       });
       
-      this.state.search.users = this.state.search.users.concat(newUsers)
+      this.state.search.citizens = this.state.search.citizens.concat(newCitizens)
     },
     changeSearch (state, search) {
       this.state.search.arguments = { ...this.state.search.arguments, ...search }
@@ -57,7 +57,7 @@ export default {
         limit: this.state.search.pagination.itemsByPage
       }
       
-      commit('onSearchComplete', await TestService.fetchPosts(params))
+      commit('onSearchComplete', await SearchService.fetchCitizens(params))
     }
   }
 }

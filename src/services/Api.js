@@ -2,8 +2,7 @@ import axios from 'axios'
 
 export default() => {
   return axios.create({
-    baseURL: `https://life-records.herokuapp.com`,
-    // baseURL: `http://localhost:8081`,
+    baseURL: process.env.SERVER_URL,
     headers: { 'Content-Type': 'application/json' }
   })
 }

@@ -1,35 +1,54 @@
 <template>
   <FormBlock class="LoginBlock">
-    <template slot="top">
-      <div class="LoginBlock_logoPosition" ref="logoPosition"></div>
-    </template>
+    <div class="LoginBlock_logoPosition" ref="logoPosition"></div>
     
     <p class="LoginBlock_title">Système Central de<br>Gestion des Données</p>
-    <InputText class="LoginBlock_input" label="Identifiant" :required="true" :modifiers="[ 'small' ]" />
-    <InputText class="LoginBlock_input" label="Mot de passe" :required="true" :modifiers="[ 'small' ]" type="password" />
     
-    <template slot="bottom">
-      <ButtonSquareFull class="LoginBlock_submit" @click="() => onSubmit()">Se connecter</ButtonSquareFull>
-    </template>
+    <div class="LoginBlock_form">
+      <transition name="fade" mode="out-in">
+        <LoginForm class="LoginBlock_transition" v-if="formType === 'login'" />
+        <RegisterForm class="LoginBlock_transition" v-else />
+      </transition>
+      
+      <p class="text-center">
+        <button class="LoginBlock_register" type="button" @click="() => this.onFormTypeSwitch()">
+          {{ formType === 'login' ? `S'enregistrer` : `Se connecter` }}
+        </button>
+      </p>
+    </div>
+
+    <ButtonSquareFull class="LoginBlock_submit" @click="() => onSubmit()">Se connecter</ButtonSquareFull>
   </FormBlock>
 </template>
 
 <script>
 import FormBlock from '@/components/FormBlock'
-import InputText from '@/components/InputGeneric/InputText'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 import ButtonSquareFull from '@/components/Buttons/ButtonSquareFull'
   
 export default {
   name: 'LoginBlock',
-  components: { FormBlock, InputText, ButtonSquareFull },
+  components: { FormBlock, ButtonSquareFull, LoginForm, RegisterForm },
+  data () {
+    return {
+      formType: 'login'  
+    }
+  },
   mounted () {
-    let bounds = this.$refs.logoPosition.getBoundingClientRect()
-    
-    this.$emit('updateLogoPosition', { x: bounds.left, y: bounds.top + window.scrollY })
+    this.updateLogo()
   },
   methods: {
+    updateLogo () {
+      let bounds = this.$refs.logoPosition.getBoundingClientRect()
+      this.$emit('updateLogoPosition', { x: bounds.left, y: bounds.top + window.scrollY })
+    },
     onSubmit () {
       this.$emit('submitForm')
+    },
+    onFormTypeSwitch () {
+      this.formType = this.formType === 'login' ? 'register' : 'login'
+      setTimeout(() => this.updateLogo(), 410)
     }
   }
 }
@@ -57,11 +76,37 @@ export default {
     font-weight: bold;
   }
   
-  .LoginBlock_input {
-    // margin: 15px 0;
-  }
-  
   .LoginBlock_submit {
     margin-top: 40px;
+  }
+  
+  .LoginBlock_register {
+    margin-top: 10px;
+    font-size: var(--font-size-small);
+    text-decoration: underline;
+  }
+  
+  .LoginBlock_form {
+    padding: 0 10%;
+    overflow: hidden;
+  }
+  
+  .LoginBlock_transition {
+    transition: all 400ms ease;
+    
+    &.fade-leave-active {
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+    
+    &.fade-enter {
+      transform: translateX(50%);
+      opacity: 0;
+    }
+    
+    &.fade-enter-to {
+      transform: translateX(0%);
+      opacity: 1;
+    }
   }
 </style>

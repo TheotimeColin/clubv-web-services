@@ -26,7 +26,7 @@ import LogoGeneric from '@/components/LogoGeneric'
 import townLogo from '@/assets/img/icons/lspd.png'
   
 export default {
-  name: 'RecordDetails',
+  name: 'Login',
   components: { WrapperGeneric, SectionGeneric, LoginBlock, LogoGeneric }, 
   data () {
     return {

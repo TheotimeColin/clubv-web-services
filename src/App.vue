@@ -47,7 +47,7 @@ export default {
       
       if (to.meta.transitionName === 'slideUp') {
         this.$set(this, 'transition', {
-          name: transitionName,
+          name: 'slideUp',
           mode: 'in-out',
           active: 'slideUp-enter-active'
         })
@@ -57,7 +57,7 @@ export default {
         this.$set(this, 'transition', {
           name: 'slideDown',
           mode: 'in-out',
-          active: null
+          active: 'slideDown-enter-active'
         })
       }
       
@@ -113,8 +113,8 @@ export default {
   position: absolute;
   width: 100%;
 }
-  
-.slideDown-leave-active {
+ 
+.slideDown-enter-active {
   animation-direction: reverse;
 }
   

@@ -6,8 +6,10 @@
     <WrapperGeneric>
       <form class="Test_form" @submit="(e) => this.onSubmitSearch(e)" action="#">
         <IconGeneric class="Test_logo" name="logoLSPD" :width="mini ? 70 : 100" />
-        <InputText class="InputTest" label="Prénom" @changeSearch="(v) => this.onChangeSearch({ firstName: v })"/>
-        <InputText class="InputTest" label="Nom" @changeSearch="(v) => this.onChangeSearch({ lastName: v })"/>
+        
+        <InputText class="InputTest" label="Prénom" v-model="form.firstName" />
+        <InputText class="InputTest" label="Nom" v-model="form.lastName" />
+        
         <button class="SubmitTest" type="submit">
           <IconGeneric :width="15" name="arrowRightWhite" />
         </button>
@@ -29,13 +31,26 @@ export default {
   props: {
     mini: { type: Boolean, default: false }
   },
+  data () {
+    return {
+      form: {
+        firstName: '',
+        lastName: ''
+      }
+    }
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler () {
+        this.$store.commit('changeSearch', this.form)
+      }
+    }
+  },
   methods: {
     onSubmitSearch (e) {
       e.preventDefault()
       this.$store.dispatch('search')
-    },
-    onChangeSearch (search) {
-      this.$store.commit('changeSearch', search)
     }
   }
 }

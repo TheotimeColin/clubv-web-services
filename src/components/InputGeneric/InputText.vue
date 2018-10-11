@@ -12,10 +12,10 @@
       class="InputText_input"
       :type="type"
       :required="required"
-      value=""
       @focus="() => this.$set(this, 'isFocused', true)"
       @blur="() => this.$set(this, 'isFocused', false)"
-      @keyup="(e) => this.onKeyup(e)"
+      @input="(e) => this.onInput(e)"
+      v-bind:value="value"
       ref="input"
     >
   </div>
@@ -32,12 +32,12 @@ export default {
   mixins: [ ClassesMixin ],
   data () {
     return {
-      value: '',
       hasValue: false,
       isFocused: false
     }
   },
   props: {
+    value: {},
     type: { type: String, default: 'text' },
     modifiers: { type: Array, default: () => [] },
     required: { type: Boolean, default: false },
@@ -48,12 +48,14 @@ export default {
       return this.hasValue || this.isFocused
     }
   },
-  methods: {
-    onKeyup (e) {
-      this.$set(this, 'value', this.$refs.input.value)
+  watch: {
+    value () {
       this.$set(this, 'hasValue', this.value.length > 0 ? true : false)
-      
-      this.$emit('changeSearch', this.value)
+    }
+  },
+  methods: {
+    onInput (e) {
+      this.$emit('input', e.target.value)
     }
   }
 }

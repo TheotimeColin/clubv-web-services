@@ -1,12 +1,6 @@
 <template>
   <div class="FormBlock">
-    <slot name="top"></slot>
-    
-    <div class="FormBlock_container">
-      <slot></slot>
-    </div>
-    
-    <slot name="bottom"></slot>
+    <slot></slot>
   </div>
 </template>
 
@@ -23,11 +17,5 @@ export default {
     margin: 0 auto;
     overflow: auto;
     background-color: var(--color-background-white);
-  }
-  
-  .FormBlock_container {
-    max-width: 400px;
-    width: 95%;
-    margin: 0 auto;
   }
 </style>

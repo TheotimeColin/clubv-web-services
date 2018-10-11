@@ -18,7 +18,14 @@
   --color-background-dark: #131a21;
   --color-background-darker: #0d0f10;
   
-  --font-size-small: 15px;
+  --font-size-small: 17px;
   --font-size-main: 20px;
   --font-size-big: 24px;
 }
+
+/* Utils */
+
+.text-center {
+  text-align: center;
+}
+

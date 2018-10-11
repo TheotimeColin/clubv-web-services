@@ -48,7 +48,7 @@ export default {
       return this.state.progress > 0 ? true : false
     },
     users () {
-      return this.$store.state.search.users
+      return this.$store.state.search.citizens
     },
     pagination () {
       return this.$store.state.search.pagination
