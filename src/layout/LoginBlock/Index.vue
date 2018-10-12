@@ -4,20 +4,24 @@
     
     <p class="LoginBlock_title">Système Central de<br>Gestion des Données</p>
     
-    <div class="LoginBlock_form">
-      <transition name="fade" mode="out-in">
-        <LoginForm class="LoginBlock_transition" v-if="formType === 'login'" />
-        <RegisterForm class="LoginBlock_transition" v-else />
-      </transition>
-      
-      <p class="text-center">
-        <button class="LoginBlock_register" type="button" @click="() => this.onFormTypeSwitch()">
-          {{ formType === 'login' ? `S'enregistrer` : `Se connecter` }}
-        </button>
-      </p>
-    </div>
+    <form @submit.prevent="() => onSubmit()" action="#">
+        <div class="LoginBlock_form">
+          <transition name="fade" mode="out-in">
+            <LoginForm class="LoginBlock_transition" @update="(v) => $emit('update-values', { login: v })" v-if="formType === 'login'" />
+            <RegisterForm class="LoginBlock_transition" @update="(v) => $emit('update-values', { register: v })" v-else />
+          </transition>
 
-    <ButtonSquareFull class="LoginBlock_submit" @click="() => onSubmit()">Se connecter</ButtonSquareFull>
+          <p class="text-center">
+            <button class="LoginBlock_register" type="button" @click="() => this.onFormTypeSwitch()">
+              {{ formType === 'login' ? `S'enregistrer` : `Se connecter` }}
+            </button>
+          </p>
+        </div>
+      
+        <ButtonSquareFull class="LoginBlock_submit" type="submit">
+          {{ formType === 'register' ? `S'enregistrer` : `Se connecter` }}
+        </ButtonSquareFull>
+      </form>
   </FormBlock>
 </template>
 
@@ -32,24 +36,31 @@ export default {
   components: { FormBlock, ButtonSquareFull, LoginForm, RegisterForm },
   data () {
     return {
-      formType: 'login'  
+      formType: 'login',
+      loginForm: {},
+      registerForm: {}
     }
   },
-  mounted () {
-    this.updateLogo()
+  watch: {
+    formType: {
+      immediate: true,
+      handler (value) {
+        this.$emit('switch-type', value)
+        setTimeout(() => this.updateLogo(), 410)
+      }
+    }
   },
   methods: {
     updateLogo () {
       let bounds = this.$refs.logoPosition.getBoundingClientRect()
-      this.$emit('updateLogoPosition', { x: bounds.left, y: bounds.top + window.scrollY })
+      this.$emit('update-logo-position', { x: bounds.left, y: bounds.top + window.scrollY })
     },
     onSubmit () {
-      this.$emit('submitForm')
+      this.$emit('submit-form')
     },
     onFormTypeSwitch () {
       this.formType = this.formType === 'login' ? 'register' : 'login'
-      setTimeout(() => this.updateLogo(), 410)
-    }
+    },
   }
 }
 </script>

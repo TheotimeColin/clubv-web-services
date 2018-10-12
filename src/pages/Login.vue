@@ -5,13 +5,15 @@
         class="Login_logo"
         :source="assets.townLogo"
         :width="100"
-        :style="{ transform: `translate3d(${logoCoords.x}px, ${logoCoords.y}px, 0)` }"
+        :style="{ transform: `translate3d(${logoAnimationCoords.x}px, ${logoAnimationCoords.y}px, 0)` }"
       />
       
       <LoginBlock
         class="Login_block"
-        @updateLogoPosition="(coords) => onUpdateLogoPosition(coords)"
-        @submitForm="() => onSubmit()"
+        @switch-type="(v) => onSwitchType(v)"
+        @update-logo-position="(coords) => onUpdateLogoPosition(coords)"
+        @submit-form="() => onSubmit()"
+        @update-values="(v) => onUpdateValues(v)"
       />
     </WrapperGeneric>
   </SectionGeneric>
@@ -32,21 +34,49 @@ export default {
     return {
       assets: { townLogo },
       logoCoords: { x: 0, y: 0 },
-      submitted: false
+      submitted: false,
+      form: {
+        type: '',
+        login: {},
+        register: {}
+      }
+    }
+  },
+  computed: {
+    logoAnimationCoords () {
+      return {
+        x: this.submitted ? (window.innerWidth / 2) : this.logoCoords.x,
+        y: this.submitted ? (window.innerHeight / 2) : this.logoCoords.y
+      } 
     }
   },
   methods: {
-    onUpdateLogoPosition(coords) {
+    onUpdateLogoPosition (coords) {
       this.$set(this, 'logoCoords', coords)
     },
-    onSubmit() {
-      console.log('lel')
+    onSubmit () {
       this.$set(this, 'submitted', true)
       
-      this.$set(this, 'logoCoords', {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
-      })
+      if (this.form.type === 'register') {
+        this.$store.dispatch('registerUser', this.form.register).then((res) => {
+          setTimeout(() => {
+            if (res.data.status === 0) {
+              this.$set(this, 'submitted', false)
+            } else {
+              console.log('All good') 
+            }
+          }, 1500)
+        })
+      }
+    },
+    onSwitchType (value) {
+      this.form.type = value
+    },
+    onUpdateValues (value) {
+      this.form = {
+        ...this.form,
+        ...value
+      }
     }
   }
 }
@@ -66,6 +96,7 @@ export default {
     left: 0;
     z-index: 5;
     margin: -50px 0 0 -50px;
+    transition: all 1s ease;
   }
   
   .Login_block {

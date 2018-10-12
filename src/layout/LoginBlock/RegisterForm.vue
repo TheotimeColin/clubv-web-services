@@ -20,8 +20,9 @@ export default {
   props: {
     fields: {
       default: () => [
-        { name: 'lastName', label: 'Nom', required: true, type: 'text', value: '' },
+        { name: 'phone', label: 'Téléphone', required: true, type: 'text', value: '' },
         { name: 'firstName', label: 'Prénom', required: true, type: 'text', value: '' },
+        { name: 'lastName', label: 'Nom', required: true, type: 'text', value: '' },
         { name: 'password', label: 'Mot de passe', required: true, type: 'password', value: '' }
       ]
     }
@@ -32,6 +33,14 @@ export default {
   data () {
     return {
       form: {}
+    }
+  },
+  watch: {
+    form: {
+      deep: true,
+      handler (value) {
+        this.$emit('update', value)
+      }
     }
   }
 }
