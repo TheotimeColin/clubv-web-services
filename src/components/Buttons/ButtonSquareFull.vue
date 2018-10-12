@@ -21,6 +21,7 @@ export default {
     width: 100%;
     font-weight: bold;
     padding: 20px;
+    cursor: pointer;
     text-transform: uppercase;
     font-size: var(--font-size-medium);
     color: var(--color-background-white);

@@ -10,6 +10,7 @@
       
       <LoginBlock
         class="Login_block"
+        :display-logo="!submitted"
         @switch-type="(v) => onSwitchType(v)"
         @update-logo-position="(coords) => onUpdateLogoPosition(coords)"
         @submit-form="() => onSubmit()"
@@ -33,32 +34,33 @@ export default {
   data () {
     return {
       assets: { townLogo },
-      logoCoords: { x: 0, y: 0 },
+      logo: {
+        coords: { x: 0, y: 0 }
+      },
       submitted: false,
       form: {
         type: '',
-        login: {},
-        register: {}
+        data: {}
       }
     }
   },
   computed: {
     logoAnimationCoords () {
       return {
-        x: this.submitted ? (window.innerWidth / 2) : this.logoCoords.x,
-        y: this.submitted ? (window.innerHeight / 2) : this.logoCoords.y
+        x: this.submitted ? (window.innerWidth / 2) - 50 : this.logo.coords.x,
+        y: this.submitted ? (window.innerHeight / 2) - 50 : this.logo.coords.y
       } 
     }
   },
   methods: {
     onUpdateLogoPosition (coords) {
-      this.$set(this, 'logoCoords', coords)
+      this.$set(this.logo, 'coords', coords)
     },
     onSubmit () {
       this.$set(this, 'submitted', true)
       
       if (this.form.type === 'register') {
-        this.$store.dispatch('registerUser', this.form.register).then((res) => {
+        this.$store.dispatch('registerUser', this.form.data).then((res) => {
           setTimeout(() => {
             if (res.data.status === 0) {
               this.$set(this, 'submitted', false)
@@ -73,10 +75,7 @@ export default {
       this.form.type = value
     },
     onUpdateValues (value) {
-      this.form = {
-        ...this.form,
-        ...value
-      }
+      this.form.data = value
     }
   }
 }
@@ -95,8 +94,7 @@ export default {
     top: 0;
     left: 0;
     z-index: 5;
-    margin: -50px 0 0 -50px;
-    transition: all 1s ease;
+    opacity: 0;
   }
   
   .Login_block {
@@ -106,7 +104,8 @@ export default {
   .Login--submitted {
     
     .Login_logo {
-      transition: all 1s ease;
+      opacity: 1;
+      transition: transform 1s ease;
     }
     
     .Login_block {

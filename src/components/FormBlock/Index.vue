@@ -15,7 +15,6 @@ export default {
   .FormBlock {
     max-width: 500px;
     margin: 0 auto;
-    overflow: auto;
     background-color: var(--color-background-white);
   }
 </style>
