@@ -16,14 +16,14 @@
           <Form
             class="LoginBlock_transition"
             :fields="loginForm"
-            @update="(v) => $emit('update-values', v)"
             v-if="formType === 'login'"
+            key="login"
           />
 
           <Form
             class="LoginBlock_transition"
             :fields="registerForm"
-            @update="(v) => $emit('update-values', v)"
+            key="register"
             v-else
           />
         </transition>
@@ -54,25 +54,14 @@ export default {
   name: 'LoginBlock',
   components: { FormBlock, LogoGeneric, ButtonSquareFull, Form },
   props: {
-    displayLogo: {
-      type: Boolean,
-      default: true
-    }
+    displayLogo: { type: Boolean, default: true },
+    loginForm: { type: Array, required: true },
+    registerForm: { type: Array, required: true }
   },
   data () {
     return {
       assets: { townLogo },
-      formType: 'login',
-      loginForm: [
-        { name: 'phone', label: 'Téléphone', required: true, type: 'text', value: '' },
-        { name: 'password', label: 'Mot de passe', required: true, type: 'password', value: '' }
-      ],
-      registerForm:  [
-        { name: 'phone', label: 'Téléphone', required: true, type: 'text', value: '' },
-        { name: 'firstName', label: 'Prénom', required: true, type: 'text', value: '' },
-        { name: 'lastName', label: 'Nom', required: true, type: 'text', value: '' },
-        { name: 'password', label: 'Mot de passe', required: true, type: 'password', value: '' }
-      ]
+      formType: 'login'
     }
   },
   watch: {

@@ -11,10 +11,11 @@
       <LoginBlock
         class="Login_block"
         :display-logo="!submitted"
+        :login-form="form.login"
+        :register-form="form.register"
         @switch-type="(v) => onSwitchType(v)"
         @update-logo-position="(coords) => onUpdateLogoPosition(coords)"
         @submit-form="() => onSubmit()"
-        @update-values="(v) => onUpdateValues(v)"
       />
     </WrapperGeneric>
   </SectionGeneric>
@@ -40,7 +41,16 @@ export default {
       submitted: false,
       form: {
         type: '',
-        data: {}
+        login: [
+          { name: 'phone', label: 'Téléphone', required: true, type: 'text', value: '' },
+          { name: 'password', label: 'Mot de passe', required: true, type: 'password', value: '' }
+        ],
+        register: [
+          { name: 'phone', label: 'Téléphone', required: true, type: 'text', value: '' },
+          { name: 'firstName', label: 'Prénom', required: true, type: 'text', value: '' },
+          { name: 'lastName', label: 'Nom', required: true, type: 'text', value: '' },
+          { name: 'password', label: 'Mot de passe', required: true, type: 'password', value: '' }
+        ]
       }
     }
   },
@@ -49,33 +59,38 @@ export default {
       return {
         x: this.submitted ? (window.innerWidth / 2) - 50 : this.logo.coords.x,
         y: this.submitted ? (window.innerHeight / 2) - 50 : this.logo.coords.y
-      } 
+      }
     }
   },
   methods: {
     onUpdateLogoPosition (coords) {
       this.$set(this.logo, 'coords', coords)
     },
-    onSubmit () {
+    async onSubmit () {
       this.$set(this, 'submitted', true)
       
       if (this.form.type === 'register') {
-        this.$store.dispatch('registerUser', this.form.data).then((res) => {
-          setTimeout(() => {
-            if (res.data.status === 0) {
-              this.$set(this, 'submitted', false)
-            } else {
-              console.log('All good') 
-            }
-          }, 1500)
-        })
+        let response = await this.$store.dispatch('registerUser', this.getForm())
+        setTimeout(() => {
+          if (response.data.status === 0) {
+            this.$set(this, 'submitted', false)
+          } else {
+            console.log('All good') 
+          }
+        }, 1500)
       }
     },
     onSwitchType (value) {
       this.form.type = value
     },
-    onUpdateValues (value) {
-      this.form.data = value
+    getForm () {
+      let parsedForm = {}
+      
+      this.form[this.form.type].forEach(field => {
+        parsedForm[field.name] = field.value
+      })
+      
+      return parsedForm
     }
   }
 }

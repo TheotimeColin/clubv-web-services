@@ -1,12 +1,12 @@
 <template>
   <div>
     <InputText 
-      v-for="input in fields"
+      v-for="(input, i) in fields"
       :label="input.label"
       :required="input.required"
       :type="input.type"
       :modifiers="[ 'small' ]"
-      v-model="form[input.name]"
+      v-model="input.value"
       :key="input.name"
     />
   </div>
@@ -22,22 +22,6 @@ export default {
     fields: {
       type: Array,
       default: () => []
-    }
-  },
-  created () {
-    this.fields.forEach((field) => this.$set(this.form, field.name, ''))
-  },
-  data () {
-    return {
-      form: {}
-    }
-  },
-  watch: {
-    form: {
-      deep: true,
-      handler (value) {
-        this.$emit('update', value)
-      }
     }
   }
 }
