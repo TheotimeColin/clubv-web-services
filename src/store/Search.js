@@ -1,4 +1,4 @@
-import SearchService from '@/services/SearchService'
+import CitizenService from '@/services/CitizenService'
 
 export default {
   state: {
@@ -57,7 +57,11 @@ export default {
         limit: this.state.search.pagination.itemsByPage
       }
       
-      commit('onSearchComplete', await SearchService.fetchCitizens(params))
+      commit('onSearchComplete', await CitizenService.fetchCitizens(params))
+    },
+    async getCitizen({ commit }, phone) {
+      let citizen = await CitizenService.getCitizen(phone)
+      return citizen.data
     }
   }
 }

@@ -32,13 +32,12 @@ export default {
       config: {
         link: {
           base: '/records/',
-          parameters: ['id', 'lastName']
+          parameters: ['phone', 'lastName']
         },
         rows: {
-          id: { label: 'ID', style: { width: '100px', textAlign: 'center' } },
+          phone: { label: 'Téléphone', placeholder: '000-0000', style: { whiteSpace: 'nowrap', textAlign: 'center' } },
           firstName: { label: 'Prénom', style: { width: '35%' } },
           lastName: { label: 'Nom', style: { width: '35%', textTransform: 'uppercase', fontWeight: 800 } },
-          phone: { label: 'Téléphone', placeholder: '000-0000', style: { whiteSpace: 'nowrap', textAlign: 'center' } }
         }
       }
     }

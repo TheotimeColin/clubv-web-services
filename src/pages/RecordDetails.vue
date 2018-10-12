@@ -39,11 +39,12 @@ export default {
   name: 'RecordDetails',
   components: { WrapperGeneric, SectionGeneric, Breadcrumbs, TextPlaceholder, ButtonHorizontal },
   mounted () {
-    
-  }, 
+    this.getCitizen()
+  },
   data () {
     return {
-      assets: { person }, 
+      assets: { person },
+      citizen: {},
       general: [
         { label: 'Prénom', value: 'Text', loading: true },
         { label: 'Nom', value: 'Text', loading: false },
@@ -61,6 +62,10 @@ export default {
     }
   },
   methods: {
+    async getCitizen () {
+      let response = await this.$store.dispatch('getCitizen', '111-1111')
+      console.log(response)
+    }
   }
 }
 </script>
