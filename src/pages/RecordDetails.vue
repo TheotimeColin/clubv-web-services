@@ -19,7 +19,7 @@
         </div>
         
         <div class="RecordDetails_permits">
-          <ButtonHorizontal v-for="row in permits">{{ row.label }}</ButtonHorizontal>
+          <ButtonHorizontal v-for="row in permits" :key="row.label">{{ row.label }}</ButtonHorizontal>
         </div>
       </div>
     </WrapperGeneric>

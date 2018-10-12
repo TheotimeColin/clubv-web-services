@@ -2,7 +2,7 @@
   <div class="Table">
     <TableHead :config="config" :last-row="clickable" />
     <div class="Table_row" v-for="(row, i) in finalData">
-      <TableCell v-for="cell in row" :style="cell.style">
+      <TableCell v-for="cell in row" :style="cell.style" :key="cell.label">
           <TextPlaceholder
             class="Table_placeholder"
             :display="cell.value == ''"

@@ -4,6 +4,7 @@
       v-for="head in rows"
       :style="head.style"
       :head="true"
+      :key="head.label"
     >
       {{ head.label }}
     </TableCell>

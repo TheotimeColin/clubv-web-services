@@ -7,6 +7,7 @@
       :type="input.type"
       :modifiers="[ 'small' ]"
       v-model="form[input.name]"
+      :key="input.name"
     />
   </div>
 </template>
