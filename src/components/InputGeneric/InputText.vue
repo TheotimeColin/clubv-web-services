@@ -49,8 +49,11 @@ export default {
     }
   },
   watch: {
-    value () {
-      this.$set(this, 'hasValue', this.value.length > 0 ? true : false)
+    value: {
+      immediate: true,
+      handler () {
+        this.$set(this, 'hasValue', this.value.length > 0 ? true : false)
+      }
     }
   },
   methods: {
