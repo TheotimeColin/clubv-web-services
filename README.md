@@ -1,21 +1,57 @@
-# fivem
+# Front-end environment
+## Sélecteurs CSS
+### BEM
 
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+```css
+.Block_element--modifier {}
 ```
+Exemples :
+```css
+.Input {}
+```
+```css
+.Input_label--no-border {}
+```
+Voir http://workshops.dev.wandi.io/presentations/2018221-wandi-front-end/#/2
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Classes réservées au javascript
+Pour sélectionner des éléments pour utiliser dans un script JS, utiliser une classe de type :
+```html
+class="js-element-name"
+```
+**/!\ Ne jamais mettre de style sur ces classes**
+
+- [ ] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
+
+Voir http://workshops.dev.wandi.io/presentations/2018221-wandi-front-end/#/5/3
+
+## Committing
+```js
+type(scope): comment
+```
+### Types :
+  * feat (feature)
+  * fix (bug fix)
+  * docs (documentation)
+  * style (formatting, missing semi colons...)
+  * refactor (refactoring)
+  * chore (maintaining)
+
+### Scope : 
+  Scope could be anything specifying place of the commit change.
+  For example : routing, Button, Header, HomeController...
+  
+### Subject : 
+  * Use imperative, present tense : “change” not “changed” nor “changes”
+  * Don't capitalize first letter
+  * No dot (.) at the end
+  
+### Exemples :
+```js
+feat(Button) add style on hover
+```
+```js
+fix(routing) change Home route typo
+```
